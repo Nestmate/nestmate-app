@@ -1,0 +1,29 @@
+@import 'fonts.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-4xl font-semibold;
+    }
+    h2 {
+        @apply text-2xl font-semibold;
+    }
+    h3 {
+        @apply text-3xl font-semibold;
+    }
+    h4 {
+        @apply text-3xl font-semibold;
+    }
+    a,button,input,text-area{
+        @apply transition-all;
+    }
+    a{
+        @apply text-slate-900;
+    }
+    button{
+        @apply text-white px-4 py-3 rounded-md;
+        
+    }
+}

@@ -1,6 +1,6 @@
 export const Navigation = () => {
   return (
-    <nav className="flex sm:justify-center space-x-4">
+    <nav className="flex sm:justify-center space-x-4 py-4">
         {[
             ['Home', '/dashboard'],
             ['Team', '/team'],

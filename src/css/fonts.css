@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'GT Flexa';
+    src: url('fonts/GTFlexa-Bd.woff2') format('woff2'),
+        url('fonts/GTFlexa-Bd.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'GT Flexa';
+    src: url('fonts/GTFlexa-Md.woff2') format('woff2'),
+        url('fonts/GTFlexa-Md.woff') format('woff');
+    font-weight: bolder;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'GT Flexa';
+    src: url('fonts/GTFlexa-Rg.woff2') format('woff2'),
+        url('fonts/GTFlexa-Rg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
