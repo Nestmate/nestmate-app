@@ -1,5 +1,4 @@
 export const Index = () => {
-  
   return (
     <div className="container px-3 mx-auto md:px-4">
       <div className="w-full lg:w-2/3 mx-auto">
