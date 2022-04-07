@@ -20,7 +20,7 @@ export const NearByRoomMates = ({theme}) => {
     ]);
 
     return (
-        <section className="py-6 md:py-10 bg-slate-100">
+        <section className="bg-slate-100">
 
             <Container>
 

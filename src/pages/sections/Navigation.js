@@ -1,11 +1,12 @@
 import { Container } from "../../components/elements/Container"
+import Logo from '../../assets/logo/nestmate-logo-full.svg'
 
 export const Navigation = () => {
   return (
     <header>
       <Container>
-        <div className="flex justify-between">
-          <div></div>
+        <div className="flex justify-between items-center">
+          <div><img src={Logo} alt="Nestmate Logo" className="h-8"/></div>
           <nav className="flex sm:justify-center space-x-4 py-4">
               {[
                   ['Home', '/dashboard'],
