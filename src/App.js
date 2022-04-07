@@ -1,4 +1,5 @@
-import { Navigation } from "./components/navigation/Navigation";
+import { Navigation } from "./pages/sections/Navigation";
+import { Footer } from "./pages/sections/Footer";
 import { Router } from "./router/Router";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div>
       <Navigation/>
       <Router/>
+      <Footer/>
     </div>
   );
 }
