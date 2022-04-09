@@ -8,31 +8,31 @@ export const NearByRoomMates = ({theme}) => {
         {
             firstName: 'Bryan',
             lastName: 'Adams',
-            birthDate: '18-06-1993',
+            birthDate: '1987/06/18',
             verified: false
         },
         {
             firstName: 'Nicole',
             lastName: 'Kidman',
-            birthDate: '18-06-1993',
+            birthDate: '2003/06/18',
             verified: false
         },
         {
             firstName: 'Bryan',
             lastName: 'Adams',
-            birthDate: '18-06-1993',
+            birthDate: '1996/06/18',
             verified: false
         },
         {
             firstName: 'Nicole',
             lastName: 'Kidman',
-            birthDate: '18-06-1993',
+            birthDate: '1993/06/18',
             verified: false
         },
         {
             firstName: 'Bryan',
             lastName: 'Adams',
-            birthDate: '18-06-1993',
+            birthDate: '1976/06/18',
             verified: false
         }
     ]);
@@ -42,8 +42,8 @@ export const NearByRoomMates = ({theme}) => {
 
             <Container>
 
-                <h2 class="text-3xl md:text-4xl mb-2">Roommates near you</h2>
-                <p class="text-xl text-slate-600 mb-6">Some sort of subtitle</p>
+                <h2 className="text-3xl md:text-4xl mb-2">Roommates near you</h2>
+                <p className="text-xl text-slate-600 mb-6">Some sort of subtitle</p>
                 
                 <RoomMates roommates={roommates}/>
 

@@ -10,21 +10,21 @@ export const Navigation = () => {
           <div><img src={Logo} alt="Nestmate Logo" className="h-7"/></div>
           <nav className="flex sm:justify-center space-x-4 py-4">
               {[
-                  ['Home', '/dashboard'],
-                  ['Team', '/team'],
-                  ['Projects', '/projects'],
-                  ['Reports', '/reports'],
-              ].map(([title, url]) => (
-                  <Link to={url} className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900">{title}</Link>
+                  ['Home', '/dashboard','nav-link'],
+                  ['Team', '/team','nav-link'],
+                  ['Projects', '/projects','nav-link'],
+                  ['Reports', '/reports','nav-link'],
+              ].map(([title, url, className]) => (
+                  <Link to={url} className={className}>{title}</Link>
               ))}
           </nav>
           <div>
             <nav className="flex sm:justify-center space-x-4 py-4">
                 {[
-                    ['Login', '/auth/signin'],
-                    ['Get Started', '/auth/signup'],
-                ].map(([title, url]) => (
-                    <Link to={url} className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900">{title}</Link>
+                    ['Login', '/auth/signin', 'nav-link'],
+                    ['Get Started', '/auth/signup','button'],
+                ].map(([title, url, className]) => (
+                    <Link to={url} className={className}>{title}</Link>
                 ))}
             </nav>
           </div>
