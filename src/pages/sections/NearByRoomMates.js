@@ -16,6 +16,24 @@ export const NearByRoomMates = ({theme}) => {
             lastName: 'Kidman',
             birthDate: '18-06-1993',
             verified: false
+        },
+        {
+            firstName: 'Bryan',
+            lastName: 'Adams',
+            birthDate: '18-06-1993',
+            verified: false
+        },
+        {
+            firstName: 'Nicole',
+            lastName: 'Kidman',
+            birthDate: '18-06-1993',
+            verified: false
+        },
+        {
+            firstName: 'Bryan',
+            lastName: 'Adams',
+            birthDate: '18-06-1993',
+            verified: false
         }
     ]);
 

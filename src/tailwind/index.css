@@ -24,7 +24,7 @@
         
     }
     section,.section{
-        @apply py-6 md:py-20;
+        @apply py-6 md:py-20 overflow-hidden;
     }
     .container{
         @apply px-5 mx-auto;

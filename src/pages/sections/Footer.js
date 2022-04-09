@@ -4,7 +4,7 @@ import { Container } from '../../components/elements/Container'
 
 export const Footer = () => {
   return (
-    <footer className='section bg-gray-900 text-white'>
+    <footer className='section bg-slate-900 text-white'>
         <Container>
             <div className='grid grid-col-1 md:grid-col-4 lg:grid-cols-5'>
                 <div>
