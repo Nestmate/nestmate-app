@@ -2,7 +2,7 @@
 
 export const RoomMate = ({roommate}) => {
 
-    const { firstName,birthDate } = roommate;
+    const { firstName, birthDate } = roommate;
 
     const calculateAgeFromDate = (date) => {
         const today = new Date();
@@ -18,7 +18,7 @@ export const RoomMate = ({roommate}) => {
 
     return (
         <div className="rounded-lg border overflow-hidden">
-            <img src="https://picsum.photos/400/420"/>
+            <img src="https://picsum.photos/400/420" alt={`Picture of ${firstName}`}/>
             <div className="p-3 md:p-4 bg-white">
                 <h3 className="text-xl mb-2">{firstName}, {calculateAgeFromDate(birthDate)}</h3>
                 <p>$500/m in <b>Lisboa</b></p>

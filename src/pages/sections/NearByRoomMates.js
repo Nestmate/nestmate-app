@@ -1,10 +1,10 @@
-import { useState,useEffect } from "react"
+import { useState } from "react"
 import { Container } from "../../components/elements/Container";
 import { RoomMates } from "../../components/mates/RoomMates"
 
 export const NearByRoomMates = ({theme}) => {
 
-    const [roommates,setRoommates] = useState([
+    const [roommates] = useState([
         {
             firstName: 'Bryan',
             lastName: 'Adams',
