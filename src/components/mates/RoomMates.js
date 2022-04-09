@@ -5,7 +5,7 @@ import { useKeenSlider } from 'keen-slider/react' // import from 'keen-slider/re
 
 export const RoomMates = ({roommates}) => { 
 
-    const [refCallback, slider, sliderNode] = useKeenSlider(
+    const [refCallback] = useKeenSlider(
         {
             breakpoints: {
                 '(min-width: 300px)': {
