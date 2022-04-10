@@ -719,6 +719,18 @@ section, .section{
   padding: 0.75rem;
 }
 
+.p-6{
+  padding: 1.5rem;
+}
+
+.p-5{
+  padding: 1.25rem;
+}
+
+.p-4{
+  padding: 1rem;
+}
+
 .px-3{
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -732,6 +744,11 @@ section, .section{
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.px-4{
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .text-center{
@@ -756,6 +773,11 @@ section, .section{
 .text-3xl{
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-6xl{
+  font-size: 3.75rem;
+  line-height: 1;
 }
 
 .font-normal{
@@ -820,6 +842,14 @@ section, .section{
 }
 
 @media (min-width: 768px){
+  .md\:flex{
+    display: flex;
+  }
+
+  .md\:grid{
+    display: grid;
+  }
+
   .md\:w-2\/3{
     width: 66.666667%;
   }

@@ -7,7 +7,7 @@ export const Navigation = () => {
     <header>
       <Container>
         <div className="flex justify-between items-center">
-          <div><img src={Logo} alt="Nestmate Logo" className="h-7"/></div>
+          <div><Link to="/"><img src={Logo} alt="Nestmate Logo" className="h-7"/></Link></div>
           <nav className="flex sm:justify-center space-x-4 py-4">
               {[
                   ['Home', '/dashboard','nav-link'],
