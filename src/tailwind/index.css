@@ -19,10 +19,6 @@
     a,button,input,text-area{
         @apply transition-all;
     }
-    button{
-        @apply text-white px-4 py-3 rounded-md;
-        
-    }
     section,.section{
         @apply py-6 md:py-20 overflow-hidden;
     }

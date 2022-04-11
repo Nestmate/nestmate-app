@@ -1,41 +1,20 @@
-import { useState } from "react"
+import axios from "axios";
+import { useState, useEffect } from "react"
 import { Container } from "../../components/elements/Container";
 import { RoomMates } from "../../components/mates/RoomMates"
 
 export const NearByRoomMates = ({theme}) => {
 
-    const [roommates] = useState([
-        {
-            firstName: 'Bryan',
-            lastName: 'Adams',
-            birthDate: '1987/06/18',
-            verified: false
-        },
-        {
-            firstName: 'Nicole',
-            lastName: 'Kidman',
-            birthDate: '2003/06/18',
-            verified: false
-        },
-        {
-            firstName: 'Bryan',
-            lastName: 'Adams',
-            birthDate: '1996/06/18',
-            verified: false
-        },
-        {
-            firstName: 'Nicole',
-            lastName: 'Kidman',
-            birthDate: '1993/06/18',
-            verified: false
-        },
-        {
-            firstName: 'Bryan',
-            lastName: 'Adams',
-            birthDate: '1976/06/18',
-            verified: false
-        }
-    ]);
+    useEffect(() => {
+
+        (async () => {
+            const { data } = await axios.get("https://api.nestmate.co/api/users/location/38.74365/-9.1602/100");
+            setRoommates(data);
+        })();
+
+    },[]);
+
+    const [roommates,setRoommates] = useState([]);
 
     return (
         <section className="bg-slate-100">
