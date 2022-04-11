@@ -1,4 +1,5 @@
 import { Hero } from "./sections/Hero"
+import { Locations } from "./sections/Locations"
 import { NearByRoomMates } from "./sections/NearByRoomMates"
 
 export const Index = () => {
@@ -7,6 +8,7 @@ export const Index = () => {
         
         <Hero />
         <NearByRoomMates />
+        <Locations />
 
       </main>
   )
