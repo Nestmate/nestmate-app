@@ -18,7 +18,7 @@ export const RoomMate = ({roommate}) => {
 
     return (
         <div className="rounded-lg border overflow-hidden">
-            <img src="https://picsum.photos/400/420" alt={`${firstName}'s face`}/>
+            <img src="https://picsum.photos/400/420" alt={`${firstName}'s face`} className="w-100"/>
             <div className="p-3 md:p-4 bg-white">
                 <h3 className="text-xl mb-2">{firstName}, {calculateAgeFromDate(birthDate)}</h3>
                 <p>$500/m in <b>Lisboa</b></p>

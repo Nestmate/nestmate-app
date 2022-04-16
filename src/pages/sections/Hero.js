@@ -11,7 +11,7 @@ export const Hero = () => {
                     <form>
                     <fieldset className="grid grid-cols-3 gap-3 w-full md:w-2/3 mx-auto">
                         <label className="col-span-2">
-                        <input type="email" placeholder="Email address" className="px-3 py-3 bg-white border shadow-sm border-slate-300 placeholder-slate-400 w-full outline-none rounded-md focus:border-slate-500" required/>
+                        <input type="email" placeholder="Email address" className="input" required/>
                         </label>
                         <button type="submit" className="bg-eastern-800 hover:bg-eastern-900 focus:border-eastern-400 outline-none w-full rounded-md">Subscribe</button>
                     </fieldset>

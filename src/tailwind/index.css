@@ -22,6 +22,13 @@
     section,.section{
         @apply py-6 md:py-20 overflow-hidden;
     }
+    input[type=text],
+    input[type=password],
+    input[type=email],
+    input[type=date],
+    .input{
+        @apply px-3 py-3 bg-white border shadow-sm border-slate-300 placeholder-slate-400 w-full outline-none rounded-md focus:border-slate-500;
+    }
     .nav-link{
         @apply rounded-lg px-3 py-2 text-slate-800 font-medium hover:bg-slate-100 hover:text-slate-900;
     }
