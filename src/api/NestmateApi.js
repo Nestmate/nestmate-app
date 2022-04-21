@@ -17,3 +17,7 @@ export const getUsersByLocation = (lng, lat, distance = 10) => {
 export const getLocations = () => {
     return axios.get(`${baseURL}/locations/`);
 }
+
+export const verify = (token) => {
+    return axios.get(`${baseURL}/auth/verify`,{headers:{Authorization: `Bearer ${token}`}});
+}
