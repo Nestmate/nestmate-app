@@ -27,8 +27,13 @@ function UserProviderWrapper({children}){
 
                 try{
                     const { data } = await verify(storedToken);
+                    console.log(data);
                     setUser(data.user);
                     setIsLoggedIn(true);
+
+                    if(!user?.user?.isOnboarded){
+                        navigate('/auth/onboarding');
+                    }
                     
                 }catch(err){
                     setUser(null);
@@ -38,11 +43,13 @@ function UserProviderWrapper({children}){
                 }
                 
             })();
+
         }else{
             setUser(null);
             setIsLoggedIn(false);
             setIsLoading(false);
         }
+
     }
 
     const logoutUser = () => {

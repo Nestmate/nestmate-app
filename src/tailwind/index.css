@@ -20,7 +20,10 @@
         @apply transition-all;
     }
     section,.section{
-        @apply py-6 md:py-20 overflow-hidden;
+        @apply py-10 md:py-20 overflow-hidden;
+    }
+    label{
+        @apply text-gray-700 inline-block mb-2;
     }
     input[type=text],
     input[type=password],

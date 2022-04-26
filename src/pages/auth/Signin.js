@@ -50,7 +50,7 @@ export const Signin = () => {
   return (
     <section className="">
       <article>
-        <Container>
+        <Container size="sm">
           <header>
             <h1>Sign in</h1>
             <p>
