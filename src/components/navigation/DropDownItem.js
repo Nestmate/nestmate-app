@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Menu } from '@headlessui/react'
-import { ClassNames } from "../helpers/ClassName";
+import { ClassNames } from "../helpers/helpers";
 
 export const DropDownItem = ({item}) => {
     return (

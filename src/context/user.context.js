@@ -20,14 +20,14 @@ function UserProviderWrapper({children}){
     const authenticateUser = () => {
 
         const storedToken = getToken();
-        console.log(storedToken);
+        
         if(storedToken){
             //verify token
             (async () => {
 
                 try{
                     const { data } = await verify(storedToken);
-                    setUser(data);
+                    setUser(data.user);
                     setIsLoggedIn(true);
                     
                 }catch(err){
@@ -64,6 +64,7 @@ function UserProviderWrapper({children}){
             setUser,
             isLoggedIn,
             storeToken,
+            getToken,
             authenticateUser,
             logoutUser,
             isLoading}}>

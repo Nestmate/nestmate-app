@@ -4,7 +4,7 @@ import Icon from '../../assets/logo/nestmate-symbol.svg'
 import { UserContext } from '../../context/user.context';
 import { useContext } from 'react';
 import { Profile } from "../../components/navigation/Profile";
-import { ClassNames } from "../../components/helpers/ClassName";
+import { ClassNames } from "../../components/helpers/helpers";
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { NavigationItem } from "../../components/navigation/NavigationItem";
@@ -30,7 +30,7 @@ export const Navigation = () => {
     <Disclosure as="nav" className='border-b-2 border-slate-200 border-solid'>
       {({ open }) => (
         <>
-          <Container>
+          <div className="px-4 md:px-6">
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -82,7 +82,7 @@ export const Navigation = () => {
               </div>
 
             </div>
-          </Container>
+          </div>
 
           {/* MOBILE MENU */}
           <Disclosure.Panel className="sm:hidden">

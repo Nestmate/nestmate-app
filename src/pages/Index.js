@@ -6,7 +6,7 @@ export const Index = () => {
   return (
       <main>
         
-        {/* <Hero /> */}
+        <Hero />
         <NearByRoomMates />
         <Locations />
 

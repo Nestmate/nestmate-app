@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom"
-import { ClassNames } from "../helpers/ClassName";
+import { ClassNames } from "../helpers/helpers";
 
 export const NavigationItem = ({item}) => {
 
-    console.log(item)
     return (
         <>
             <Link 

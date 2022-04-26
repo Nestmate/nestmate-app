@@ -35,6 +35,12 @@
     .button{
         @apply rounded-lg px-3 py-2 text-white bg-eastern-800 font-medium hover:bg-eastern-900;
     }
+    .button-light{
+        @apply rounded-lg px-3 py-2 text-slate-400 bg-slate-100 font-medium hover:bg-slate-300 hover:text-slate-600 ;
+    }
+    .button-light.active{
+        @apply bg-yellow-400 text-yellow-900;
+    }
     .container{
         @apply px-5 mx-auto;
     }

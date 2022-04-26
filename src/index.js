@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProviderWrapper } from './context/user.context';
+import { MantineProvider } from '@mantine/core';
 
 ReactDOM.render(
   <React.StrictMode>
       <Router>
         <UserProviderWrapper>
+          <MantineProvider theme={{ fontFamily: 'GT Flexa' }}>
             <App />
+          </MantineProvider>
         </UserProviderWrapper>
       </Router>
   </React.StrictMode>,

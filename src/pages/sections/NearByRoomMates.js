@@ -5,18 +5,26 @@ import { RoomMates } from "../../components/mates/RoomMates"
 
 export const NearByRoomMates = ({theme}) => {
 
+    const [roommates,setRoommates] = useState([]);
+    const [loading,setLoading] = useState(true);
+    const [position,setPosition] = useState(null);
+
+    const showPosition = ({coords}) => {
+        setPosition(coords);
+    }
+
     useEffect(() => {
 
         (async () => {
-            const { data } = await getUsersByLocation( 38.74365, -9.1602, 100);
+
+            if(!position) return await navigator.geolocation.getCurrentPosition(showPosition);
+            const { data } = await getUsersByLocation( position.latitude, position.longitude, 100);
             setRoommates(data);
             setLoading(false);
         })();
 
-    },[]);
+    },[position]);
 
-    const [roommates,setRoommates] = useState([]);
-    const [loading,setLoading] = useState(true);
 
     return (
         <section className="bg-slate-100">

@@ -32,7 +32,7 @@ export const RoomMates = ({roommates}) => {
     
     return(
         <div ref={refCallback} className="keen-slider grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-3" style={{overflow:'visible'}}>
-            {roommates.length > 0 && roommates.map(roommate => <div className="keen-slider__slide"><RoomMate roommate={roommate} /></div>)}
+            {roommates.length > 0 && roommates.map(roommate => <div className="keen-slider__slide" key={roommate.username}><RoomMate roommate={roommate} /></div>)}
             {!roommates.length && <h3 className="text-center text-slate-600 font-normal text-xl">No Roommates to show 😢</h3>}
         </div>
     )
