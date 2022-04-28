@@ -1,22 +1,33 @@
 import { Link } from "react-router-dom";
 import { getAge } from "../helpers/helpers";
+import { Image } from "@mantine/core";
+import { useEffect } from "react";
 
 
 export const RoomMate = ({roommate}) => {
 
-    const { username ,firstName, birthDate } = roommate;
+    const { username, profilePicture, firstName, birthDate, loc } = roommate;
 
-    
+    useEffect(() => {
+        console.log(roommate);
+    } ,[]);
 
     return (
         <div>
-            <Link to={`/mates/${username}`}>
-                <img src="https://picsum.photos/400/420" alt={`${firstName}'s face`} className="w-full rounded-lg border-1 border-solid border-slate-200"/>
+            {roommate && <Link to={`/mates/${username}`}>
+                <Image
+                    width={'100%'}
+                    height={300}
+                    fit="cover"
+                    radius={'md'}
+                    src={profilePicture?.path}
+                />
+                
                 <div className="py-4">
                     <h3 className="text-xl mb-2">{firstName}, {getAge(birthDate)}</h3>
-                    <p>$500/m in <b>Lisboa</b></p>
+                    <p>Looking in <b>{loc?.location}</b></p>
                 </div>
-            </Link>
+            </Link>}
         </div>
     )
 }

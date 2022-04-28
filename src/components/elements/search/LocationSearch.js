@@ -4,6 +4,7 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { getLocationsByQuery } from '../../../api/NestmateApi'
 import { Autocomplete } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import { LocationBar } from './LocationBar';
 
 export const LocationSearch = ({size,className}) =>{
 
@@ -14,53 +15,19 @@ export const LocationSearch = ({size,className}) =>{
     const [locations,setLocations] = useState([]);
     const [loading,setLoading] = useState(false);
 
-    const onLocationSearchChangeHandler = (values) => {
-
-        setQuery(values);   
-
-        const currentLocation = locations.length ? locations.find(location => location.value === values) : null
-        
-        if(currentLocation) setLocation( currentLocation );
-    }
+    const onLocationSearchChangeHandler = (values) => setLocation(values);
 
     const onSearchButtonClicked = (e) => {
-            e.preventDefault();
-            //const { lat,lng } = location.loc;
-            //if(location) return navigate(`/mates/location/${lat}/${lng}`);
+        e.preventDefault();
+        const { lat,lng } = location.loc;
+        if(location) return navigate(`/mates/location/${lat}/${lng}`);
     }
 
-    useEffect(() => {
-        
-        const delayDebounceFn = setTimeout(() => {
-            (async () => {
-                //setLoading(true);
-                if(query.length <= 0) return setLocations([]);
-                
-                const { data } = await getLocationsByQuery(query);
-
-                console.log(data)
-
-                const mappedLocations = data.predictions.map(({description,place_id}) => {
-                    return {
-                        value: description,
-                        loc: place_id
-                    } 
-                });
-
-                setLocations(mappedLocations);
-
-            })();
-
-        }, 100)
-
-        return () => clearTimeout(delayDebounceFn);
-
-    }, [query])
 
     return (
         <div className={`w-full flex flex-row gap-3 ${className}`}>
 
-            <Autocomplete
+            <LocationBar
                 placeholder="Search by city, state, or zip code"
                 nothingFound="No locations found"
                 value={query} 

@@ -10,11 +10,15 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { NavigationItem } from "../../components/navigation/NavigationItem";
 import { Link } from "react-router-dom";
 
-const navigation = [
-  { name: 'Mates', to: '/mates', current: true },
+const privateNavigation = [
+  { name: 'Mates', to: '/mates', current: false },
+  { name: 'Favourites', to: '/favourites', current: false },
   { name: 'Groups', to: '/groups', current: false },
-  { name: 'Help?', to: '/support', current: false },
 ]
+const navigation = [
+  { name: 'Help?', to: '/support', current: false }
+]
+
 const authMenu = [
   { name: 'Sign In', to: '/auth/signin', current: false },
   { name: 'Sign Up', to: '/auth/signup', current: false }
@@ -62,6 +66,7 @@ export const Navigation = () => {
                 {/* MAIN MENU */}
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
+                    {isLoggedIn && privateNavigation.map( item => <NavigationItem key={item.name} item={item}/>)}
                     {navigation.map( item => <NavigationItem key={item.name} item={item}/>)}
                   </div>
                 </div>

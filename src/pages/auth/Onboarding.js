@@ -6,6 +6,8 @@ import { StyledStepper } from '../../components/elements/StyledStepper';
 import { UserContext } from '../../context/user.context';
 import { Step2 } from '../../components/onboarding/Step2';
 import { Step3 } from '../../components/onboarding/Step3';
+import { useNavigate } from 'react-router-dom';
+import { onBoardUser } from '../../api/NestmateApi';
 
 const newUserState = {
     _id: "",
@@ -20,18 +22,13 @@ const newUserState = {
         location: "",
         coordinates: []
     },
-    budgetRange: {
-        min: 0,
-        max: 0
-    },
-    moveDateRange: {
-        start: 0,
-        end: 0
-    }
+    budgetRange: null,
+    moveDateRange: null
 };
 
 
 const reducer = (state, action) => {
+
     switch (action.type) {
         case "input":
         return { ...state, [action.name]: action.value };
@@ -43,8 +40,8 @@ const reducer = (state, action) => {
 };
 
 export const Onboarding = () => {
-
-    const { user } = useContext(UserContext);
+    const navigate = useNavigate();
+    const { user,storeToken,authenticateUser } = useContext(UserContext);
 
     const [newUser, dispatch] = useReducer(reducer, newUserState);
     const [active, setActive] = useState(0);
@@ -52,32 +49,45 @@ export const Onboarding = () => {
     const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
     const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
-    const handleInputChange = (name, value) => dispatch({ type: "input", name, value });
+    const handleInputChange = (name, value) => dispatch({ type: "input", name , value });
+
+    const onCompleteOnboarding = async () => {
+        try {
+            
+            const { data } = await onBoardUser(newUser);
+            storeToken(data.authToken);
+            await authenticateUser();
+            navigate("/");
+
+        }catch(err){
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
-
+        
         handleInputChange('_id',user._id);
+        console.log(newUser);
 
     },[user]);
 
-    console.log(user);
 
     return (
         <>
             <section>
                 <Container size='sm'>
-                    <StyledStepper active={active} onStepClick={setActive} >
+                    <StyledStepper active={active} onStepClick={setActive}>
 
                         <Stepper.Step>
-                            <Step1 newUser={newUser} handleInputChange={handleInputChange}/>
+                            <Step1 newUser={newUser} handleInputChange={handleInputChange} handleNextStep={nextStep}/>
                         </Stepper.Step>
 
                         <Stepper.Step>
-                            <Step2 newUser={newUser} handleInputChange={handleInputChange}/>
+                            <Step2 newUser={newUser} handleInputChange={handleInputChange} handleNextStep={nextStep}/>
                         </Stepper.Step>
 
                         <Stepper.Step>
-                            <Step3 newUser={newUser} handleInputChange={handleInputChange}/>
+                            <Step3 newUser={newUser} handleInputChange={handleInputChange} handleNextStep={onCompleteOnboarding}/>
                         </Stepper.Step>
 
                         <Stepper.Completed>
@@ -88,7 +98,6 @@ export const Onboarding = () => {
 
                     <Group position="center" mt="xl">
                         <button className="button-light" onClick={prevStep}>Back</button>
-                        <button className="button" onClick={nextStep}>Next step</button>
                     </Group>
                 </Container>
             </section>

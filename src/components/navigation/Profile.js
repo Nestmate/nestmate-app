@@ -22,7 +22,7 @@ export const Profile = ({user}) => {
                 <div>
                 <Menu.Button className=" flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-200 focus:ring-white">
                     <span className="sr-only">Open user menu</span>
-                    <Avatar radius="xl" />
+                    <Avatar radius="xl" src={user?.profilePicture?.path}/>
                 </Menu.Button>
                 </div>
                 <Transition

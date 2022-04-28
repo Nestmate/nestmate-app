@@ -21,10 +21,9 @@ export const MateDetail = ({username}) => {
     },[username])
 
     return (
-        <div className="max-w-screen-md mx-auto">
+        <div className="max-w-screen-lg mx-auto">
             {isLoading && <p>Loading ...</p>}
             {!isLoading && mate && <>
-                <MateGallery className={`mb-6 md:mb-8`}/>
                 <MateHeader mate={mate} />
                 {/* <MatetDetailInfo mate={mate} /> */}
             </>}

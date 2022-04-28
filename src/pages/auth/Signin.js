@@ -38,7 +38,7 @@ export const Signin = () => {
       const { data } = await signInUser(userFormData);
       storeToken(data.authToken);
       await authenticateUser();
-      navigate("/");
+      navigate("/mates");
     } catch (err) {
       console.log(err);
       setError({ status: 400, message: err.message });
