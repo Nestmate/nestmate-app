@@ -1,4 +1,4 @@
-import { Routes,Route } from 'react-router-dom';
+import { Routes,Route,useLocation } from 'react-router-dom';
 import { Signin } from '../pages/auth/Signin';
 import { Signup } from '../pages/auth/Signup';
 import { ErrorPage } from '../pages/error/ErrorPage';
@@ -9,23 +9,43 @@ import { Mate } from '../pages/mates/Mate';
 import { SearchMates } from '../pages/mates/SearchMates';
 import { Onboarding } from '../pages/auth/Onboarding';
 import { Favourites } from '../pages/favourites.js/Favourites';
+import { ModalPage } from '../components/modals/ModalPage';
+import { MateDetail } from '../components/mates/mate/MateDetail';
+import { IsOnboarded } from '../components/elements/IsOnboarded';
+import { IsAuthenticated } from '../components/elements/IsAuthenticated';
+
 
 export const Router = () => {
+
+  const location = useLocation();
+
+  const state = location.state;
+
   return (
-    <Routes>
-      <Route path="/" element={<Index />}/>
+    <>
+      <Routes location={state?.backgroundLocation || location}>
+        <Route path="/" element={<Index />}/>
 
-      <Route path="/auth/signup" element={<Signup />}/>
-      <Route path="/auth/signin" element={<Signin />}/>
-      <Route path="/auth/onboarding" element={<IsPrivate><Onboarding /></IsPrivate>}/>
+        <Route path="/auth/signup" element={<IsAuthenticated><Signup /></IsAuthenticated>}/>
+        <Route path="/auth/signin" element={<IsAuthenticated><Signin /></IsAuthenticated>}/>
+        <Route path="/auth/onboarding" element={<IsPrivate><IsOnboarded><Onboarding /></IsOnboarded></IsPrivate>}/>
 
-      <Route path="/mates/" element={<IsPrivate><Mates /></IsPrivate>}/>
-      <Route path="/favourites/" element={<IsPrivate><Favourites /></IsPrivate>}/>
-      <Route path="/mates/:username" element={<Mate />}/>
-      <Route path="/mates/location/:lat/:lng" element={<SearchMates />}/>
+        <Route path="/mates/" element={<IsPrivate><Mates /></IsPrivate>}/>
+        <Route path="/favourites/" element={<IsPrivate><Favourites /></IsPrivate>}/>
+        <Route path="/mates/:username" element={<Mate />}/>
+        <Route path="/mates/location/:lat/:lng" element={<SearchMates />}/>
 
-      <Route path="*" element={<ErrorPage />}/>
+        <Route path="*" element={<ErrorPage />}/>
 
-    </Routes>
+      </Routes>
+
+      {/* Show the modal when a `backgroundLocation` is set */}
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route path="/mates/:username" element={<ModalPage><MateDetail /></ModalPage>} />
+        </Routes>
+      )}
+
+    </>
   )
 }

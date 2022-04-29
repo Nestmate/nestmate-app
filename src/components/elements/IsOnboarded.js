@@ -3,13 +3,13 @@ import { UserContext } from "../../context/user.context";
 import { Navigate } from "react-router-dom";
 import { IsLoading } from "./IsLoading";
 
-export const IsPrivate = ({ children }) => {
+export const IsOnboarded = ({ children }) => {
 
-    const { isLoggedIn, isLoading } = useContext(UserContext);
+    const { isOnboarded, isLoading } = useContext(UserContext);
 
     if (isLoading) return <IsLoading loading={isLoading}/>
     
-    if (!isLoggedIn) return <Navigate to="/auth/signin"/>;
+    if (isOnboarded) return <Navigate to="/mates"/>;
     
     return children;
 }

@@ -8,6 +8,7 @@ function UserProviderWrapper({children}){
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isOnboarded, setIsOnboarded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     
 
@@ -29,6 +30,7 @@ function UserProviderWrapper({children}){
                     const { data } = await verify(storedToken);
                     setUser(data.user);
                     setIsLoggedIn(true);
+                    setIsOnboarded(data.user.isOnboarded);
                     
                 }catch(err){
                     setUser(null);
@@ -45,6 +47,7 @@ function UserProviderWrapper({children}){
             setUser(null);
             setIsLoggedIn(false);
             setIsLoading(false);
+            setIsOnboarded(false);
         }
 
         
@@ -73,6 +76,7 @@ function UserProviderWrapper({children}){
             getToken,
             authenticateUser,
             logoutUser,
+            isOnboarded,
             isLoading}}>
 
             {children}

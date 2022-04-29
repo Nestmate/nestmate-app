@@ -5,8 +5,6 @@ import { MateDetail } from "../../components/mates/mate/MateDetail"
 
 export const Mate = () => {
 
-  const {username} = useParams();
-
   useEffect(() => {
     (async () => {
     })();
@@ -15,7 +13,7 @@ export const Mate = () => {
   return (
     <section>
         <Container>
-            <MateDetail username={username} />
+            <MateDetail />
         </Container>
     </section>
   )

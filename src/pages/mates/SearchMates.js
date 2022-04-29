@@ -5,6 +5,7 @@ import { Container } from "../../components/elements/Container";
 import { RoomMate } from "../../components/mates/RoomMate";
 import { UserContext } from "../../context/user.context";
 import { Map } from "../../components/map/Map";
+import { LoadingMate } from "../../components/mates/LoadingMate";
 
 export const SearchMates = () => {
 
@@ -34,13 +35,21 @@ export const SearchMates = () => {
             <header className="py-8">
               <h1>Search mates</h1>
             </header>
-            {loading && <p>Loading...</p>}
-            {!loading && mates?.length === 0 && <p>No mates found</p>}
+
+            {loading && <>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                {[...Array(4)].map(i => <LoadingMate key={i} />)}
+            </div>
+            </>}
+
             {!loading && mates?.length > 0 && <>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3 ">
                 {mates.map(mate => <RoomMate roommate={mate} key={mate.username} />)}
               </div>
             </>}
+
+            {!loading && mates?.length === 0 && <p>No mates found</p>}
+
             </article>
             <aside>
               <Map lat={lat} lng={lng} mates={mates}/>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { getUsersByLocation } from "../../api/NestmateApi";
 import { Container } from "../../components/elements/Container";
+import { LoadingMate } from "../../components/mates/LoadingMate";
 import { RoomMates } from "../../components/mates/RoomMates"
 
 export const NearByRoomMates = ({theme}) => {
@@ -34,7 +35,11 @@ export const NearByRoomMates = ({theme}) => {
                 <h2 className="text-3xl md:text-4xl mb-2">Roommates near you</h2>
                 <p className="text-xl text-slate-600 mb-6">Some sort of subtitle</p>
                 
-                {loading ? <p>Loading...</p> : <RoomMates roommates={roommates}/>}
+                {loading ? <>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
+                        {[...Array(5)].map(i => <LoadingMate key={i} />)}
+                    </div>
+                </> : <RoomMates roommates={roommates}/>}
 
             </Container>
         </section>
