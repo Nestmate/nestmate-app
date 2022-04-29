@@ -3,7 +3,6 @@ import { Signin } from '../pages/auth/Signin';
 import { Signup } from '../pages/auth/Signup';
 import { ErrorPage } from '../pages/error/ErrorPage';
 import { Index } from '../pages/Index';
-import { IsPrivate } from '../components/elements/IsPrivate';
 import { Mates } from '../pages/mates/Mates';
 import { Mate } from '../pages/mates/Mate';
 import { SearchMates } from '../pages/mates/SearchMates';
@@ -13,6 +12,7 @@ import { ModalPage } from '../components/modals/ModalPage';
 import { MateDetail } from '../components/mates/mate/MateDetail';
 import { IsOnboarded } from '../components/elements/IsOnboarded';
 import { IsAuthenticated } from '../components/elements/IsAuthenticated';
+import { IsPrivate } from '../components/elements/IsPrivate';
 
 
 export const Router = () => {
