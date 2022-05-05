@@ -28,8 +28,8 @@ export const dropzoneChildren = (status, theme) => (
     <ImageUploadIcon status={status} style={{ color: getIconColor(status, theme) }} size={80} />
 
     <div>
-      <Text size="xl" inline>
-        Drag images here or click to select files
+      <Text size="lg" inline>
+        Drag or upload image.
       </Text>
       <Text size="sm" color="dimmed" inline mt={7}>
         Attach as many files as you like, each file should not exceed 5mb

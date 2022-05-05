@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container } from "../../components/elements/Container";
-import { useReducer, useState } from "react";
+import { useContext, useReducer, useState } from "react";
 import { signUpUser } from "../../api/NestmateApi";
+import { showNotification } from "@mantine/notifications";
+import { CheckIcon } from "@heroicons/react/solid";
+import { PasswordInput, Stack, Text, TextInput, Title, Alert, Button } from "@mantine/core";
+import { UserContext } from "../../context/user.context";
 
 const initialUserFormState = {
     email: "",
@@ -20,18 +24,44 @@ const reducer = (state, action) => {
 };
 
 export const Signup = () => {
+
+  const navigate = useNavigate();
   const [userFormData, dispatch] = useReducer(reducer, initialUserFormState);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { storeToken, authenticateUser } = useContext(UserContext);
 
   const handleSignUpForm = async (e) => {
     e.preventDefault();
     try {
+      
+      setIsLoading(true);
+      const { data, status } = await signUpUser(userFormData);
 
-      const { data } = await signUpUser(userFormData);
-      //setSuccess({ status: 200, message: data.message });
+      if(data.authToken){
+
+        storeToken(data.authToken);
+
+        await authenticateUser();
+        
+        showNotification({
+          title: "You have successfully signed up",
+          color: "green",
+          icon: <CheckIcon />
+        });
+
+        navigate('/auth/onboarding');
+      }
+
+      console.log(data,status);
+      
     } catch (err) {
-      console.log(err.message);
+
       setError({ status: 400, message: err.message });
+
+    }finally{
+
+      setIsLoading(false);
     }
     //dispatch({ type: "clean" });
   };
@@ -40,29 +70,43 @@ export const Signup = () => {
   return (
     <section className="">
       <article>
+
         <Container size="sm">
-        <div className="grid grid-cols-1 gap-6">
-          <header className="text-center grid grid-cols-1 gap-4">
-              <h1>Sign up now</h1>
-              <p>
-                Already have an account? <Link to="/auth/signin">Sign in</Link>
-              </p>
-            </header>
-            <form method="post" onSubmit={handleSignUpForm} className="grid grid-cols-1 gap-4">
-            {error && <p className="text-red-900">{error.message}</p>}
-              <fieldset>
-                <label htmlFor="email">Email</label>
-                <input type="email"  placeholder="Email address" name="email" id="email" required value={userFormData.email} onChange={(e) => handleInputChange(e, "email", e.target.value)  }/>
-              </fieldset>
-              <fieldset>
-                <label htmlFor="password">Password</label>
-                <input type="password" placeholder="Password" name="password" id="password" require value={userFormData.password} onChange={(e) => handleInputChange(e, "password", e.target.value)  }/>
-              </fieldset>
-              <button type="submit" className="button">Sign Up</button>
-            </form>
-        </div>
-          
-        </Container>
+            <Stack spacing='md'>
+            
+                <Title>Sign Up</Title>
+
+                <Text size="lg">Already have an account? <Link to="/auth/signin">Sign in</Link></Text>
+            
+                <form method="post" onSubmit={handleSignUpForm}>
+
+                  <Stack spacing='md'>
+
+                    {error && <Alert color={'red'}>{error.message}</Alert>}
+
+                      <TextInput
+                        placeholder="Your Email"
+                        label="Email address"
+                        value={userFormData.email} 
+                        size="md"
+                        onChange={(e) => handleInputChange(e, "email", e.target.value)  }
+                        required
+                      />
+
+                      <PasswordInput
+                          placeholder="Password"
+                          label="Password"
+                          value={userFormData.password}
+                          onChange={(e) => handleInputChange(e, "password", e.target.value) }
+                          required
+                          size="md"
+                        />
+                      <Button type="submit" size="lg" loading={isLoading}>Sign In</Button>
+                    </Stack>
+                </form>
+            </Stack>
+          </Container>
+
       </article>
     </section>
   );

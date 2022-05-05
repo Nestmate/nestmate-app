@@ -35,10 +35,13 @@ export const LocationBar = ({size , label, onChange}) =>{
 
                 console.log(data)
 
-                const mappedLocations = data.candidates.map(({formatted_address,geometry}) => {
+                const mappedLocations = data.addresses.map(({country,city,geometry}) => {
                     return {
-                        value: formatted_address,
-                        loc: geometry.location
+                        value: `${city}, ${country}`,
+                        loc: {
+                            lng: geometry.coordinates[0],
+                            lat: geometry.coordinates[1]
+                        }
                     } 
                 });
 

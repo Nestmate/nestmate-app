@@ -5,15 +5,17 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { Avatar } from '@mantine/core';
 
-const navigation = [
-    { name: 'Your Profile', to: '/profile', current: true },
-    { name: 'Settings', to: '/settings', current: false },
-]
+
 
 
 export const Profile = ({user}) => {
     
     const {logoutUser} = useContext(UserContext);
+
+    const navigation = [
+        { name: 'Your Profile', to: `/mates/${user.username}`, current: true },
+        { name: 'Settings', to: '/profile/settings', current: false },
+    ]
 
     return (
         <>

@@ -27,7 +27,7 @@ export const SearchMates = () => {
     }, [user]);
 
     return (
-      <section className="py-0">
+      <section className="py-2 ">
         <div className="w-full">
           
           <div className="grid grid-cols-2 gap-0">

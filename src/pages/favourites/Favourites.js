@@ -16,6 +16,7 @@ export const Favourites = () => {
         (async () => {
             
             const { data } = await getFavouritesByUserId(user._id);
+            console.log(data);
             setLoading(false);
             setFavourites(data);
         })();
@@ -26,12 +27,12 @@ export const Favourites = () => {
       <section className="min-h-min">
           <Container>
                 <header>
-                    <h1>Mates</h1>
+                    <h1 className="mb-6">Favourites</h1>
 
                     {loading && <p>Loading...</p>}
                     {!loading && favourites?.length === 0 && <p>No mates found</p>}
                     {!loading && favourites?.length > 0 && <div className="grid grid-col-1 md:grid-col-3 lg:grid-cols-4 gap-6">
-                        {favourites.map(({ mate }) => <RoomMate roommate={mate}/>)}
+                        {favourites.map( mate => <RoomMate key={mate.username} roommate={mate}/>)}
                     </div>}
                 </header>
           </Container>

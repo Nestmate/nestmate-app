@@ -4,7 +4,7 @@ import { Container } from "../../components/elements/Container";
 import { LoadingMate } from "../../components/mates/LoadingMate";
 import { RoomMates } from "../../components/mates/RoomMates"
 
-export const NearByRoomMates = ({theme}) => {
+export const NearByRoomMates = ({ theme }) => {
 
     const [roommates,setRoommates] = useState([]);
     const [loading,setLoading] = useState(true);
@@ -17,14 +17,13 @@ export const NearByRoomMates = ({theme}) => {
     useEffect(() => {
 
         (async () => {
-
             if(!position) return await navigator.geolocation.getCurrentPosition(showPosition);
             const { data } = await getUsersByLocation( position.latitude, position.longitude, 100);
             setRoommates(data);
             setLoading(false);
         })();
 
-    },[position]);
+    },[]);
 
 
     return (
@@ -36,8 +35,8 @@ export const NearByRoomMates = ({theme}) => {
                 <p className="text-xl text-slate-600 mb-6">Some sort of subtitle</p>
                 
                 {loading ? <>
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-                        {[...Array(5)].map(i => <LoadingMate key={i} />)}
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                        {[...Array(4)].map(i => <LoadingMate key={i} />)}
                     </div>
                 </> : <RoomMates roommates={roommates}/>}
 

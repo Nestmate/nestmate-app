@@ -1,19 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/index.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import './css/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProviderWrapper } from './context/user.context';
 import { MantineProvider } from '@mantine/core';
+import { OnNotification } from './components/elements/OnNotification';
+import { theme } from './theme/theme';
 
 ReactDOM.render(
   <React.StrictMode>
       <Router>
         <UserProviderWrapper>
-          <MantineProvider theme={{ fontFamily: 'GT Flexa' }}>
-            <App />
+          <MantineProvider
+            theme={theme}>
+            <OnNotification>
+              <App />
+            </OnNotification>
           </MantineProvider>
         </UserProviderWrapper>
       </Router>

@@ -7,7 +7,6 @@ export const ModalPage = ({ children }) => {
 
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
-    console.log(children);
 
     useEffect(() => {
         setTimeout(() => setIsOpen(true), 1);
@@ -21,11 +20,14 @@ export const ModalPage = ({ children }) => {
     return (
         <Modal
             transition={'slide-up'}
+            transitionDuration={300}
+            transitionTimingFunction={'cubic-bezier(0,.7,.3,.1)'}
             overflow="outside"
             opened={isOpen}
             onClose={onDismiss}
+            overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
             overlayOpacity={0.55}
-            overlayBlur={40}
+            overlayBlur={3}
             radius={'lg'}
             size="1024px"
         >

@@ -11,18 +11,19 @@ export const MateDetail = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { getToken } = useContext(UserContext);
 
-   const token = getToken;
+   const token = getToken();
 
     useEffect(() => {
         (async () => {
-            const { data } = await getUserByUsername(username);
+            const { data } = await getUserByUsername(username,token);
             setMate(data);
+            console.log(data);
             setIsLoading(false);
         })();
     },[username])
 
     return (
-        <div className="max-w-screen-lg mx-auto md:px-8 md:pb-8">
+        <div className="max-w-screen-lg mx-auto md:px-10 md:pb-10">
             {isLoading && <p>Loading ...</p>}
             {!isLoading && mate && <>
                 <MateHeader mate={mate} />

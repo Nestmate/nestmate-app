@@ -22,7 +22,7 @@ export const RoomMates = ({roommates}) => {
                 },
                 '(min-width: 1024px)': {
                     slides: {
-                        perView: 5,
+                        perView: 4,
                         spacing: 20,
                     },
                 },

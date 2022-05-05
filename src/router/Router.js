@@ -7,12 +7,14 @@ import { Mates } from '../pages/mates/Mates';
 import { Mate } from '../pages/mates/Mate';
 import { SearchMates } from '../pages/mates/SearchMates';
 import { Onboarding } from '../pages/auth/Onboarding';
-import { Favourites } from '../pages/favourites.js/Favourites';
+import { Favourites } from '../pages/favourites/Favourites';
 import { ModalPage } from '../components/modals/ModalPage';
 import { MateDetail } from '../components/mates/mate/MateDetail';
 import { IsOnboarded } from '../components/elements/IsOnboarded';
 import { IsAuthenticated } from '../components/elements/IsAuthenticated';
 import { IsPrivate } from '../components/elements/IsPrivate';
+import { Settings } from '../pages/settings/Settings';
+import { SettingsDetail } from '../pages/settings/SettingsDetail';
 
 
 export const Router = () => {
@@ -29,7 +31,11 @@ export const Router = () => {
         <Route path="/auth/signup" element={<IsAuthenticated><Signup /></IsAuthenticated>}/>
         <Route path="/auth/signin" element={<IsAuthenticated><Signin /></IsAuthenticated>}/>
         <Route path="/auth/onboarding" element={<IsPrivate><IsOnboarded><Onboarding /></IsOnboarded></IsPrivate>}/>
-
+        
+        
+        <Route path="/profile/settings" element={<IsPrivate><Settings/></IsPrivate>}/>
+        <Route path="/profile/settings/:type" element={<IsPrivate><SettingsDetail/></IsPrivate>}/>
+        
         <Route path="/mates/" element={<IsPrivate><Mates /></IsPrivate>}/>
         <Route path="/favourites/" element={<IsPrivate><Favourites /></IsPrivate>}/>
         <Route path="/mates/:username" element={<Mate />}/>

@@ -8,3 +8,5 @@ export const getAge = (birthDate) => {
     const age = today.diff(birthDateMoment, 'years');
     return age;
 }
+
+export const toDate = (date) => moment(date).format('MMM DD');

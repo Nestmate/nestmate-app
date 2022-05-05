@@ -10,6 +10,7 @@ function UserProviderWrapper({children}){
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isOnboarded, setIsOnboarded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [token, setToken] = useState(null);
     
 
     const storeToken = (token) => localStorage.setItem('nestmate_authToken', token);
@@ -24,6 +25,8 @@ function UserProviderWrapper({children}){
         
         if(storedToken){
             //verify token
+            setToken(storedToken);
+
             (async () => {
 
                 try{
@@ -74,6 +77,7 @@ function UserProviderWrapper({children}){
             isLoggedIn,
             storeToken,
             getToken,
+            token,
             authenticateUser,
             logoutUser,
             isOnboarded,
