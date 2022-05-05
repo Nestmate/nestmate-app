@@ -10,9 +10,9 @@ import { Onboarding } from '../pages/auth/Onboarding';
 import { Favourites } from '../pages/favourites/Favourites';
 import { ModalPage } from '../components/modals/ModalPage';
 import { MateDetail } from '../components/mates/mate/MateDetail';
-import { IsOnboarded } from '../components/elements/IsOnboarded';
-import { IsAuthenticated } from '../components/elements/IsAuthenticated';
-import { IsPrivate } from '../components/elements/IsPrivate';
+import { IsOnboarded } from '../middlewares/IsOnboarded';
+import { IsAuthenticated } from '../middlewares/IsAuthenticated';
+import { IsPrivate } from '../middlewares/IsPrivate';
 import { Settings } from '../pages/settings/Settings';
 import { SettingsDetail } from '../pages/settings/SettingsDetail';
 

@@ -7,8 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProviderWrapper } from './context/user.context';
 import { MantineProvider } from '@mantine/core';
-import { OnNotification } from './components/elements/OnNotification';
 import { theme } from './theme/theme';
+import { OnNotification } from './middlewares/OnNotification';
 
 ReactDOM.render(
   <React.StrictMode>
