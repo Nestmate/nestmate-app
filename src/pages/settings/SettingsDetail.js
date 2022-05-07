@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getSettings, updateSettings } from '../../api/NestmateApi';
 import { SettingsCardHeader } from '../../components/elements/cards/SettingsCardHeader';
 import { InterestForm } from '../../components/settings/forms/InterestsForm';
+import { MoveForm } from '../../components/settings/forms/MoveForm';
 import { PersonalForm } from '../../components/settings/forms/PersonalForm';
 import { PicturesForm } from '../../components/settings/forms/PicturesForm';
 import { UserContext } from '../../context/user.context';
@@ -20,6 +21,7 @@ export const SettingsDetail = () => {
     const [settingsData, setSettingsData] = useState(null);
     const [settingType, setSettingType] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [ isLoadingData, setIsLoadingData ] = useState(false);
 
     const setSettingsPage = (type) => {
 
@@ -31,6 +33,7 @@ export const SettingsDetail = () => {
                     form: PersonalForm
                 })
                 break;
+
             case 'interests':
 
                 setSettingType({
@@ -39,6 +42,16 @@ export const SettingsDetail = () => {
                     form: InterestForm
                 })
                 break;
+
+            case 'move':
+
+                setSettingType({
+                    title: 'Location & Buget settings.',
+                    subtitle: 'Update your location and budget.',
+                    form: MoveForm
+                })
+                break;
+
             case 'pictures':
                 setSettingType({
                     title: 'Pictures',
@@ -46,6 +59,7 @@ export const SettingsDetail = () => {
                     form: PicturesForm
                 })
                 break;
+
             default:
                 navigate(-1);
                 break;
@@ -55,7 +69,7 @@ export const SettingsDetail = () => {
 
     const onFormUpdated = async (info) => {
         try{
-
+            setIsLoadingData(true);
             const { data,status } = await updateSettings(info, user._id, token, type);
 
             showNotification({
@@ -71,6 +85,8 @@ export const SettingsDetail = () => {
                 icon: <XIcon  className='icon'/>,
                 title: err.message
             });
+        }finally{
+            setIsLoadingData(false);
         }
     };
 
@@ -105,7 +121,7 @@ export const SettingsDetail = () => {
                                 title={settingType.title} 
                                 subtitle={settingType.subtitle} />
 
-                            <settingType.form onFormUpdated={onFormUpdated} data={settingsData}/>
+                            <settingType.form onFormUpdated={onFormUpdated} data={settingsData} isLoading={isLoadingData}/>
 
                         </> }
                     </Stack>

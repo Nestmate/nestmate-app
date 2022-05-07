@@ -10,3 +10,13 @@ export const getAge = (birthDate) => {
 }
 
 export const toDate = (date) => moment(date).format('MMM DD');
+
+export const timeAgo = ( time ) => {
+
+    let secondsElapsed = moment().diff(time, 'seconds');
+    let dayStart = moment("2018-01-01").startOf('day').seconds(secondsElapsed);
+
+    if (secondsElapsed < 60) return dayStart.format('s') + 's ago';
+    return moment(time).format('hh:mm');
+        
+} 

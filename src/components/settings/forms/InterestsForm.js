@@ -2,7 +2,7 @@ import { Button, Grid, Textarea } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { InterestSelect } from "../../elements/form/InterestSelect";
 
-export const InterestForm = ({ data, onFormUpdated }) => {
+export const InterestForm = ({ data, onFormUpdated, isLoading }) => {
 
 
     const [interests, setInterests] = useState([]);
@@ -49,7 +49,7 @@ export const InterestForm = ({ data, onFormUpdated }) => {
                 </Grid.Col>
 
                 <Grid.Col>
-                    <Button type="submit" size="md" fullWidth>Update</Button>
+                    <Button type="submit" size="md" fullWidth loading={isLoading}>Update</Button>
                 </Grid.Col>
                 
             </Grid>

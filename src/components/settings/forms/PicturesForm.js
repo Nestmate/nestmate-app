@@ -6,7 +6,7 @@ import { InterestSelect } from "../../elements/form/InterestSelect";
 import { ImageDropZone } from "../../elements/Imageupload/ImageDropZone";
 import { ImagePreview } from "../../elements/Imageupload/ImagePreview";
 
-export const PicturesForm = ({ data, onFormUpdated }) => {
+export const PicturesForm = ({ data, onFormUpdated, isLoading }) => {
 
 
     const [images, setImages] = useState([]);
@@ -83,7 +83,7 @@ export const PicturesForm = ({ data, onFormUpdated }) => {
                     {images?.length > 0 && images.map( (image, i) => <ImagePreview key={i} image={{...image,i}} removeImage={onImageRemoveHandler}/> )}
                     <ImageDropZone onDrop={onImageSelectHandler} />
                 </SimpleGrid>
-                <Button type="submit" size="md" fullWidth>Update</Button>
+                <Button type="submit" size="md" fullWidth loading={isLoading}>Update</Button>
             </Stack>
         </form>
     )

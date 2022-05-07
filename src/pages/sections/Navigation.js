@@ -14,6 +14,7 @@ const privateNavigation = [
   { name: 'Mates', to: '/mates', current: false },
   { name: 'Favourites', to: '/favourites', current: false },
   { name: 'Groups', to: '/groups', current: false },
+  { name: 'Chat', to: '/chats', current: false },
 ]
 const navigation = [
   { name: 'Help?', to: '/support', current: false }

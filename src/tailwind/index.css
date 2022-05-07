@@ -424,8 +424,23 @@ Ensure the default browser behavior of the `hidden` attribute.
         
         position: relative;    
     }
+    .chat-message{
+        @apply flex flex-row gap-2;
+    }
+    .chat-message.right{
+        @apply flex-row-reverse;
+    }
+    .chat-message-text{
+        @apply px-3 py-2 bg-blueStone-700 text-white rounded-lg;
+    }
+    .chat-message.right .chat-message-text{
+        @apply bg-slate-200 text-slate-900;
+    }
     .min-height{
         @apply min-h-screen;
+    }
+    .screen-height{
+        height: calc(100vh - 70px);
     }
     @keyframes placeHolderShimmer{
         0%{

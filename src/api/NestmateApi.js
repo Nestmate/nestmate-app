@@ -6,6 +6,10 @@ export const signUpUser = ( user ) => axios.post(`${baseURL}/auth/signup`, user)
 export const signInUser = ( user ) => axios.post(`${baseURL}/auth/signin`, user);
 export const onBoardUser = ( user ) => axios.put(`${baseURL}/auth/onboard`, user);
 
+//CHAT
+export const getChats = ( token ) => axios.get(`${baseURL}/chats/`,{headers:{Authorization: `Bearer ${token}`}});
+export const getChat = ( id,token ) => axios.get(`${baseURL}/chats/${id}`,{headers:{Authorization: `Bearer ${token}`}});
+export const sendChatMessage = ( id,message,user,token ) => axios.post(`${baseURL}/chats/${id}`,{ message,user,token });
 
 //FILES
 export const uploadImage = ( files ) => axios.post(`${baseURL}/files/upload`, files);
@@ -26,6 +30,10 @@ export const toggleFavouriteUser = ( token, mateId ) => axios.post(`${baseURL}/f
 //SETTINGS
 export const getSettings = ( id, token, type ) =>  axios.get(`${baseURL}/settings/${id}/${type}`,{headers:{Authorization: `Bearer ${token}`}});
 export const updateSettings = ( info, id, token, type ) =>  axios.post(`${baseURL}/settings/${id}/${type}`,{...info},{headers:{Authorization: `Bearer ${token}`}});
+
+//ONBOARDING
+export const getOnboarding = ( id, token, type ) =>  axios.get(`${baseURL}/onboarding/${id}/${type}`,{headers:{Authorization: `Bearer ${token}`}});
+export const updateOnboarding = ( info, id, token, type ) =>  axios.post(`${baseURL}/onboarding/${id}/${type}`,{...info},{headers:{Authorization: `Bearer ${token}`}});
 
 //LOCATIONS
 export const getLocations = () =>  axios.get(`${baseURL}/locations/`);

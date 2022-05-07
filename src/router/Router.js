@@ -1,4 +1,4 @@
-import { Routes,Route,useLocation } from 'react-router-dom';
+import { Routes,Route,useLocation, Navigate } from 'react-router-dom';
 import { Signin } from '../pages/auth/Signin';
 import { Signup } from '../pages/auth/Signup';
 import { ErrorPage } from '../pages/error/ErrorPage';
@@ -15,6 +15,8 @@ import { IsAuthenticated } from '../middlewares/IsAuthenticated';
 import { IsPrivate } from '../middlewares/IsPrivate';
 import { Settings } from '../pages/settings/Settings';
 import { SettingsDetail } from '../pages/settings/SettingsDetail';
+import { Chats } from '../pages/chats/Chats';
+import { Chat } from '../pages/chats/Chat';
 
 
 export const Router = () => {
@@ -30,11 +32,15 @@ export const Router = () => {
 
         <Route path="/auth/signup" element={<IsAuthenticated><Signup /></IsAuthenticated>}/>
         <Route path="/auth/signin" element={<IsAuthenticated><Signin /></IsAuthenticated>}/>
-        <Route path="/auth/onboarding" element={<IsPrivate><IsOnboarded><Onboarding /></IsOnboarded></IsPrivate>}/>
-        
+
+        <Route path="/auth/onboarding/" element={ <Navigate to="/auth/onboarding/personal"/> } />
+        <Route path="/auth/onboarding/:type" element={<IsOnboarded><Onboarding /></IsOnboarded>}/>
         
         <Route path="/profile/settings" element={<IsPrivate><Settings/></IsPrivate>}/>
         <Route path="/profile/settings/:type" element={<IsPrivate><SettingsDetail/></IsPrivate>}/>
+
+        <Route path="/chats" element={<IsPrivate><Chats /></IsPrivate>} />
+        <Route path="/chats/:chat" element={<IsPrivate><Chats /></IsPrivate>} />
         
         <Route path="/mates/" element={<IsPrivate><Mates /></IsPrivate>}/>
         <Route path="/favourites/" element={<IsPrivate><Favourites /></IsPrivate>}/>

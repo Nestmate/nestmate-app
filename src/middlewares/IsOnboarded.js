@@ -7,9 +7,5 @@ export const IsOnboarded = ({ children }) => {
 
     const { isOnboarded, isLoading } = useContext(UserContext);
 
-    if (isLoading) return <IsLoading loading={isLoading}/>
-    
-    if (isOnboarded) return <Navigate to="/mates"/>;
-    
     return children;
 }

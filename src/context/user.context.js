@@ -44,8 +44,6 @@ function UserProviderWrapper({children}){
                 
             })();
 
-            if(user && !user.user.isOnboarded) navigate('/auth/onboarding');
-
         }else{
             setUser(null);
             setIsLoggedIn(false);

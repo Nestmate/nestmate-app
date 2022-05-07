@@ -1,106 +1,149 @@
-import { useState,useReducer,useContext, useEffect } from 'react';
-import { Stepper, Group } from '@mantine/core';
-import { Container } from '../../components/elements/Container';
-import { Step1 } from '../../components/onboarding/Step1';
-import { StyledStepper } from '../../components/elements/StyledStepper';
+import { CheckIcon, XIcon } from '@heroicons/react/solid';
+import { Container, LoadingOverlay, Stack } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
+import { useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import { getOnboarding, getSettings, updateOnboarding, updateSettings } from '../../api/NestmateApi';
+import { SettingsCardHeader } from '../../components/elements/cards/SettingsCardHeader';
+import { CompleteForm } from '../../components/settings/forms/CompleteForm';
+import { InterestForm } from '../../components/settings/forms/InterestsForm';
+import { MoveForm } from '../../components/settings/forms/MoveForm';
+import { PersonalForm } from '../../components/settings/forms/PersonalForm';
+import { PicturesForm } from '../../components/settings/forms/PicturesForm';
 import { UserContext } from '../../context/user.context';
-import { Step2 } from '../../components/onboarding/Step2';
-import { Step3 } from '../../components/onboarding/Step3';
-import { useNavigate } from 'react-router-dom';
-import { onBoardUser } from '../../api/NestmateApi';
 
-const newUserState = {
-    _id: "",
-    firstName: "",
-    lastName: "",
-    birthDate: null,
-    description: "",
-    profilePicture: "String",
-    images: [],
-    loc: {
-        type: "Point",
-        location: "",
-        coordinates: []
-    },
-    budgetRange: null,
-    moveDateRange: null
-};
-
-
-const reducer = (state, action) => {
-
-    switch (action.type) {
-        case "input":
-        return { ...state, [action.name]: action.value };
-        case "init":
-        return action.data
-        default:
-        return state;
-    }
-};
 
 export const Onboarding = () => {
-    const navigate = useNavigate();
-    const { user,storeToken,authenticateUser } = useContext(UserContext);
 
-    const [newUser, dispatch] = useReducer(reducer, newUserState);
-    const [active, setActive] = useState(0);
+    const { type } = useParams();
+    const navigate = useNavigate()
 
-    const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
-    const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
+    const { token, user, storeToken, authenticateUser } = useContext(UserContext);
+    const [onBoardingData, setOnboardingData] = useState(null);
+    const [onBoardingType, setOnboardingType] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [ isLoadingData, setIsLoadingData ] = useState(false);
 
-    const handleInputChange = (name, value) => dispatch({ type: "input", name , value });
+    const setOnboardPage = (type) => {
 
-    const onCompleteOnboarding = async () => {
-        try {
-            
-            const { data } = await onBoardUser(newUser);
-            storeToken(data.authToken);
-            await authenticateUser();
-            navigate("/");
+        switch(type){
+
+            case 'move':
+                setOnboardingType({
+                    title: 'Where do you want to move?',
+                    subtitle: 'We will help you find the best place to move.',
+                    form: MoveForm,
+                    next: '/auth/onboarding/interests'
+                })
+                break;
+            case 'interests':
+
+                setOnboardingType({
+                    title: 'Tell use more about yourself',
+                    subtitle: 'What do you like to do? Any cool hobbies?',
+                    form: InterestForm,
+                    next: '/auth/onboarding/pictures'
+                })
+                break;
+            case 'pictures':
+                setOnboardingType({
+                    title: 'Pictures',
+                    subtitle: 'Keep your pictures up to date',
+                    form: PicturesForm,
+                    next: '/auth/onboarding/complete'
+                })
+                break;
+            case 'complete':
+                setOnboardingType({
+                    title: 'Wohoo! You did it!',
+                    subtitle: "You're all set. You're ready to go!",
+                    form: CompleteForm,
+                    next: '/mates'
+                })
+                break;
+            default:
+                setOnboardingType({
+                    title: 'Personal Information',
+                    subtitle: 'Update your personal information to keep your mates in the loop',
+                    form: PersonalForm,
+                    next: '/auth/onboarding/move'
+                })
+                break;
+        }
+
+    }
+
+    const onFormUpdated = async (info) => {
+        try{
+            setIsLoadingData(true);
+            const { data,status } = await updateOnboarding(info, user._id, token, type);
+
+            if(data.authToken){
+
+                storeToken(data.authToken);
+
+                await authenticateUser();
+
+                showNotification({
+                    title: "Welcome back 🎉",
+                    color: "green",
+                    icon: <CheckIcon />
+                });
+
+                return navigate("/mates");
+            }
+
+            if(status === 200) return navigate(`${onBoardingType.next}`);
 
         }catch(err){
-            console.log(err);
+
+            showNotification({
+                color: 'red',
+                icon: <XIcon  className='icon'/>,
+                title: err.message
+            });
+        }finally{
+            setIsLoadingData(false);
         }
     };
 
     useEffect(() => {
+
+        (async () => {
+
+            if(user && token && type){
+                const { data } = await getOnboarding(user._id, token, type);
+                console.log(data);
+                setOnboardingData(data);
+                setOnboardPage(type);
+                setLoading(false);
+            }
+
+        })();
         
-        handleInputChange('_id',user._id);
-        console.log(newUser);
-
-    },[user]);
-
+    },[user,type])
 
     return (
-        <>
-            <section>
-                <Container size='sm'>
-                    <StyledStepper active={active} onStepClick={setActive}>
 
-                        <Stepper.Step>
-                            <Step1 newUser={newUser} handleInputChange={handleInputChange} handleNextStep={nextStep}/>
-                        </Stepper.Step>
+        <section>
+            <Container className='max-w-2xl'>
+                <div>
 
-                        <Stepper.Step>
-                            <Step2 newUser={newUser} handleInputChange={handleInputChange} handleNextStep={nextStep}/>
-                        </Stepper.Step>
+                    <Stack spacing='xl'>
+                        { loading && <LoadingOverlay /> }
+                        { !loading && onBoardingData && onBoardingType && <>
+                        
+                            <SettingsCardHeader 
+                                title={onBoardingType.title} 
+                                subtitle={onBoardingType.subtitle} />
 
-                        <Stepper.Step>
-                            <Step3 newUser={newUser} handleInputChange={handleInputChange} handleNextStep={onCompleteOnboarding}/>
-                        </Stepper.Step>
+                            { onBoardingType.form && <onBoardingType.form onFormUpdated={onFormUpdated} data={onBoardingData} isLoading={ isLoadingData }/> }
 
-                        <Stepper.Completed>
-                            Completed
-                        </Stepper.Completed>
-
-                    </StyledStepper>
-
-                    <Group position="center" mt="xl">
-                        <button className="button-light" onClick={prevStep}>Back</button>
-                    </Group>
-                </Container>
-            </section>
-        </>
-    );
+                        </> }
+                    </Stack>
+                </div>
+            </Container>
+        </section>
+        
+    )
 }

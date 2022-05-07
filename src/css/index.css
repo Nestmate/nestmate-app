@@ -632,6 +632,39 @@ label{
   position: relative !important;
 }
 
+.chat-message{
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.chat-message.right{
+  flex-direction: row-reverse;
+}
+
+.chat-message-text{
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 73 82 / var(--tw-bg-opacity));
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.chat-message.right .chat-message-text{
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 241 233 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(24 24 23 / var(--tw-text-opacity));
+}
+
+.screen-height{
+  height: calc(100vh - 70px);
+}
+
 @-webkit-keyframes placeHolderShimmer{
   0%{
     background-position: -468px 0
@@ -693,6 +726,14 @@ label{
   z-index: 50;
 }
 
+.col-span-2{
+  grid-column: span 2 / span 2;
+}
+
+.col-span-6{
+  grid-column: span 6 / span 6;
+}
+
 .my-4{
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -701,6 +742,10 @@ label{
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
+}
+
+.mb-1{
+  margin-bottom: 0.25rem;
 }
 
 .ml-3{
@@ -792,12 +837,12 @@ label{
   min-height: min-content;
 }
 
-.w-48{
-  width: 12rem;
-}
-
 .w-full{
   width: 100%;
+}
+
+.w-48{
+  width: 12rem;
 }
 
 .w-6{
@@ -820,16 +865,16 @@ label{
   width: 1rem;
 }
 
+.max-w-2xl{
+  max-width: 42rem;
+}
+
 .max-w-lg{
   max-width: 32rem;
 }
 
 .max-w-xl{
   max-width: 36rem;
-}
-
-.max-w-2xl{
-  max-width: 42rem;
 }
 
 .max-w-screen-lg{
@@ -870,6 +915,10 @@ label{
 
 .grid-cols-1{
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-8{
+  grid-template-columns: repeat(8, minmax(0, 1fr));
 }
 
 .grid-cols-2{
@@ -956,6 +1005,10 @@ label{
   border-radius: 0.5rem;
 }
 
+.border-r-2{
+  border-right-width: 2px;
+}
+
 .border-b-2{
   border-bottom-width: 2px;
 }
@@ -1000,6 +1053,10 @@ label{
 
 .p-4{
   padding: 1rem;
+}
+
+.p-0{
+  padding: 0px;
 }
 
 .p-2{
@@ -1049,6 +1106,11 @@ label{
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.py-10{
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .pr-2{
@@ -1114,6 +1176,11 @@ label{
   font-weight: 500;
 }
 
+.text-slate-700{
+  --tw-text-opacity: 1;
+  color: rgb(97 96 93 / var(--tw-text-opacity));
+}
+
 .text-slate-600{
   --tw-text-opacity: 1;
   color: rgb(122 121 117 / var(--tw-text-opacity));
@@ -1124,11 +1191,6 @@ label{
   color: rgb(24 24 23 / var(--tw-text-opacity));
 }
 
-.text-red-900{
-  --tw-text-opacity: 1;
-  color: rgb(127 29 29 / var(--tw-text-opacity));
-}
-
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1137,11 +1199,6 @@ label{
 .text-gray-300{
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
-}
-
-.text-slate-700{
-  --tw-text-opacity: 1;
-  color: rgb(97 96 93 / var(--tw-text-opacity));
 }
 
 .text-slate-800{

@@ -5,10 +5,10 @@ import { IsLoading } from "./IsLoading";
 
 export const IsPrivate = ({ children }) => {
 
-    const { isLoggedIn, isLoading } = useContext(UserContext);
+    const { isLoggedIn, isOnboarded, isLoading } = useContext(UserContext);
 
     if (isLoading) return <IsLoading loading={isLoading}/>
-    
+    if (!isOnboarded && isLoggedIn) return <Navigate to="/auth/onboarding/personal" />;
     if (!isLoggedIn) return <Navigate to="/auth/signin"/>;
     
     return children;

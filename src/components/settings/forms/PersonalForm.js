@@ -2,7 +2,7 @@ import { Button, Grid, Select, TextInput } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useEffect, useState } from "react";
 
-export const PersonalForm = ({ data, onFormUpdated }) => {
+export const PersonalForm = ({ data, onFormUpdated, isLoading }) => {
 
     const pronounsList = [
         { value: "other", label: "Other" },
@@ -90,7 +90,7 @@ export const PersonalForm = ({ data, onFormUpdated }) => {
                 </Grid.Col>
 
                 <Grid.Col>
-                    <Button type="submit" size="md" fullWidth>Update</Button>
+                    <Button type="submit" size="md" fullWidth loading={isLoading}>Update</Button>
                 </Grid.Col>
                 
             </Grid>
