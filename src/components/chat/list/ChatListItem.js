@@ -23,9 +23,9 @@ export const ChatListItem = ({ chat }) => {
                         </div>
                     </Group>
                     
-                    <div>
+                    { lastMessage?.updatedAt && <div>
                         <Text size="xs" color="gray" align='right'>{ messageDate(lastMessage.updatedAt) }</Text>
-                    </div>
+                    </div> }
                 </Group>
             </UnstyledButton>
         </>
