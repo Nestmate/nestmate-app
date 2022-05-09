@@ -3,7 +3,6 @@ import { timeAgo } from "../helpers/helpers"
 
 export const ChatMessage = ({ message,user, updatedAt, align }) => {
 
-  console.log(message )
 
   return (
     <div className={`chat-message-wrapper ${ align }`}>

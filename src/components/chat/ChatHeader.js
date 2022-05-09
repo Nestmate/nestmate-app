@@ -3,8 +3,6 @@ import React from 'react'
 
 export const ChatHeader = ( { chat }) => {
 
-    console.log({chat});
-
     const { _id, users } = chat;
 
     const currentUser = users[0];

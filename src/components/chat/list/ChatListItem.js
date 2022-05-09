@@ -4,7 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 export const ChatListItem = ({ chat }) => {
-    console.log({ chat })
+    
     const { _id, users, lastMessage } = chat;
     const user = users[0];
     const { firstName, lastName, profilePicture } = user;

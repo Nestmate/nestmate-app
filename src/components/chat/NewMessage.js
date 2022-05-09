@@ -11,11 +11,8 @@ export const NewMessage = ({ chatId, user, token }) => {
         e.preventDefault();
         setIsLoading(true);
 
-        console.log(`Sending message: ${message}`);
-        console.log({ chatId, user, token });
         try{
-            const { data } = await sendChatMessage(chatId, message, user._id, token);
-            console.log(data);
+            await sendChatMessage(chatId, message, user._id, token);
             setMessage("");
         }catch(err){
             console.log(err);

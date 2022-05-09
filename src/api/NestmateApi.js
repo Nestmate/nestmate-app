@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseURL = `${process.env.REACT_APP_PROJECTS_API}`;
+const baseURL = `${process.env.REACT_APP_PROJECTS_API}api`;
 
 //AUTH
 export const signUpUser = ( user ) => axios.post(`${baseURL}/auth/signup`, user);
