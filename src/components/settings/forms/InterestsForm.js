@@ -40,10 +40,10 @@ export const InterestForm = ({ data, onFormUpdated, isLoading }) => {
                 <Grid.Col>
 
                     <Textarea 
-                        label="Your Hobbies"
+                        label="Tell use a little bit more about yourself?"
                         value={description}
                         size="md"
-                        placeholder="Your Hobbies"
+                        placeholder="Describe yourself..."
                         onChange={(e) => setDescription(e.currentTarget.value)} />
 
                 </Grid.Col>

@@ -5,6 +5,7 @@ import { verify } from '../api/NestmateApi';
 const UserContext = createContext();
 
 function UserProviderWrapper({children}){
+    
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);

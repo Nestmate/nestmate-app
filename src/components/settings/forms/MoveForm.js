@@ -26,8 +26,8 @@ export const MoveForm = ({ data, onFormUpdated, isLoading }) => {
 
         console.log(data);
         setLoc(data.loc);
-        setMoveDateRange(data.moveDateRange.length ? [new Date(data.moveDateRange[0]), new Date(data.moveDateRange[1])] : [null,null]);
-        setBudgetRange(data.budgetRange);
+        setMoveDateRange(data.moveDateRange?.length ? [new Date(data.moveDateRange[0]), new Date(data.moveDateRange[1])] : [ moment() , moment() ]);
+        setBudgetRange(data.budgetRange?.length ? [data.budgetRange[0], data.budgetRange[1]] : budgetRange);
 
     },[])
 

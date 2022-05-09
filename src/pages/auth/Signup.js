@@ -37,23 +37,23 @@ export const Signup = () => {
       
       setIsLoading(true);
       const { data, status } = await signUpUser(userFormData);
-
-      if(data.authToken){
+      const { authToken } = data;
+      if(authToken){
 
         storeToken(data.authToken);
 
         await authenticateUser();
-        
+
         showNotification({
-          title: "You have successfully signed up",
+          title: "Welcome back 🎉",
           color: "green",
           icon: <CheckIcon />
         });
 
         navigate('/auth/onboarding');
-      }
 
-      console.log(data,status);
+        
+      }
       
     } catch (err) {
 

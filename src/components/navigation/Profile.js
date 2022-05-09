@@ -10,10 +10,10 @@ import { Avatar } from '@mantine/core';
 
 export const Profile = ({user}) => {
     
-    const {logoutUser} = useContext(UserContext);
+    const { logoutUser } = useContext(UserContext);
 
     const navigation = [
-        { name: 'Your Profile', to: `/mates/${user.username}`, current: true },
+        { name: 'Your Profile', to: `/mates/${user?.username}`, current: true },
         { name: 'Settings', to: '/profile/settings', current: false },
     ]
 

@@ -17,7 +17,7 @@ export const ChatDetail = ( { chatId } ) => {
     const { token, user } = useContext( UserContext );
     const isMountedRef = useRef( null );
 
-    const addMessage = (message) => setMessages( [ ...messages, message] );
+    const addMessage = (message) => setMessages( [ ...messages, message ] );
 
     useEffect( () => {
 
