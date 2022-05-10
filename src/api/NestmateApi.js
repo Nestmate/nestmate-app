@@ -10,6 +10,10 @@ export const onBoardUser = ( user ) => axios.put(`${baseURL}/auth/onboard`, user
 export const getChats = ( token ) => axios.get(`${baseURL}/chats/`,{headers:{Authorization: `Bearer ${token}`}});
 export const getChat = ( id,token ) => axios.get(`${baseURL}/chats/${id}`,{headers:{Authorization: `Bearer ${token}`}});
 export const sendChatMessage = ( id,message,user,token ) => axios.post(`${baseURL}/chats/${id}`,{ message,user,token });
+export const createChat = ( users, message, token ) => axios.post(`${baseURL}/chats/`,{ users, message, token });
+
+//CONNECTIONS
+export const getConnections = ( token ) => axios.get(`${baseURL}/connections/`,{headers:{Authorization: `Bearer ${token}`}});
 
 //FILES
 export const uploadImage = ( files ) => axios.post(`${baseURL}/files/upload`, files);

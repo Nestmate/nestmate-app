@@ -12,12 +12,18 @@ export const NewMessage = ({ chatId, user, token }) => {
         setIsLoading(true);
 
         try{
+            
             await sendChatMessage(chatId, message, user._id, token);
             setMessage("");
+
         }catch(err){
+
             console.log(err);
+
         }finally {
+
             setIsLoading(false);
+            
         }
     }
    
