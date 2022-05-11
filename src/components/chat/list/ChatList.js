@@ -1,10 +1,11 @@
 import React from 'react'
 import { ChatListItem } from './ChatListItem'
 
-export const ChatList = ({ chats }) => {
+export const ChatList = ({ chats, selectChat }) => {
+
   return (
     <>
-        { chats.map((chat,i) => <ChatListItem chat={ chat } /> )}
+        
     </>
   )
 }

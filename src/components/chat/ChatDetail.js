@@ -1,77 +1,79 @@
 import { LoadingOverlay, Stack } from "@mantine/core";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getChat } from "../../api/NestmateApi";
-import { UserContext } from "../../context/user.context";
+import { Container } from "../elements/Container";
 import { ChatHeader } from "./ChatHeader";
 import { ChatMessages } from "./ChatMessages";
 import { NewMessage } from "./NewMessage";
-import { io } from 'socket.io-client';
 
 
-export const ChatDetail = ( { chatId } ) => {
+export const ChatDetail = ( { chatId, token, user, socket } ) => {
 
-    const [ chat, setChat ] = useState( null );
-    const [ socket, setSocket ] = useState( null );
+    const [ chat, setChat ] = useState(null);
     const [ messages, setMessages ] = useState([]);
-    const [ loading, setLoading ] = useState( true );
-    const { token, user } = useContext( UserContext );
+    const [ newMessages, setNewMessages ] = useState([]);
+    const [ loading, setLoading ] = useState( false );
     const isMountedRef = useRef( null );
 
-    const addMessage = (message) => setMessages( [ ...messages, message ] );
 
-    useEffect( () => {
+    useEffect(() => {
 
         isMountedRef.current = true;
 
-        if(token && user){
+        if( token ){
 
-            ( async () => {
-
+            (async () => {
+                    
                 try{
 
-                    const { data } = await getChat(chatId,token);
-                    const curChat = { ...data.chat, users: data.chat.users.filter( u => u._id !== user._id ) };
+                    const { data } = await getChat( chatId, token );
 
-                    setChat(curChat);
+                    setChat( { ...data.chat, users: data.chat.users.filter( u => u._id != user._id ) });
+                    setMessages( data.chat.messages );
+                    setNewMessages([]);
 
-                    setMessages(curChat.messages);
-                    
-                    if(isMountedRef.current){
+                    if( isMountedRef.current ) { 
 
-                        const newSocket = await io(`${process.env.REACT_APP_PROJECTS_API}`);
-                        newSocket.emit('join', { chatId, userId: user._id });
-                        newSocket.on('message', message =>  addMessage(message) );
+                        socket.socketEmit('join_chat', { chatId, user });
+
+                        socket.socketOn('message', ( message ) =>  { 
+                            
+                            message.chatId === chatId && setNewMessages( [ ...newMessages, message.message ] );
+
+                        });
                     }
-                    
 
                 }catch(err){
                     console.log(err);
-                }finally {
-                    setLoading(false);
                 }
-            } )();
+
+            })();
         }
 
-    },[ token, chatId ]);
+
+    },[ chatId ]);
+    
     
     return (
-        <div>
+        <div class="flex w-full">
+
             { loading && <LoadingOverlay /> }
             { !loading && chat && <>
-                <Stack>
+                <div className="flex flex-col w-full gap-3 ">
 
                     <ChatHeader chat={ chat } />
 
-                    <ChatMessages messages={messages} userId={user._id}/>
+                    <ChatMessages messages={messages} newMessages={newMessages} userId={user._id} />
                     
-                    <NewMessage chatId={chatId} token={token} user={user} />
+                    <NewMessage chatId={chat._id} token={token} user={user} />
 
-                </Stack>
+                </div>
 
             </>}
             { !loading && !chat && <>
                 <h1>No Chat</h1>
             </>}
+            
         </div>
     )
 }

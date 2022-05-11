@@ -41,7 +41,7 @@ export const Router = () => {
         <Route path="/profile/settings/:type" element={<IsPrivate><SettingsDetail/></IsPrivate>}/>
 
         <Route path="/chats" element={<IsPrivate><Chats /></IsPrivate>} />
-        <Route path="/chats/:chat" element={<IsPrivate><Chats /></IsPrivate>} />
+        <Route path="/chats/:chatId" element={<IsPrivate><Chats /></IsPrivate>} />
         <Route path="/chat/new" element={<IsPrivate><NewChat /></IsPrivate>} />
         
         <Route path="/mates/" element={<IsPrivate><Mates /></IsPrivate>}/>
@@ -57,7 +57,7 @@ export const Router = () => {
       {state?.backgroundLocation && (
         <Routes>
           <Route path="/mates/:username" element={<ModalPage><MateDetail /></ModalPage>} />
-          <Route path="/chat/new" element={<IsPrivate><ModalPage size={'lg'}><NewChat /></ModalPage></IsPrivate>} />
+          <Route path="/chat/new/:userId" element={<IsPrivate><ModalPage size={'lg'}><NewChat /></ModalPage></IsPrivate>} />
         </Routes>
       )}
 

@@ -4,6 +4,7 @@ import { MateGallery } from "./MateGallery";
 import { MateHeader } from "./MateHeader";
 import { UserContext } from "../../../context/user.context";
 import { useParams } from "react-router-dom";
+import { MateInfo } from "./MateInfo";
 
 export const MateDetail = () => {
     const { username } = useParams();
@@ -23,11 +24,12 @@ export const MateDetail = () => {
     },[username])
 
     return (
-        <div className="max-w-screen-lg mx-auto md:px-10 md:pb-10">
+        <div className="max-w-screen-lg mx-auto lg:p-6">
             {isLoading && <p>Loading ...</p>}
             {!isLoading && mate && <>
-                <MateHeader mate={mate} />
-                {/* <MatetDetailInfo mate={mate} /> */}
+                <MateHeader mate={ mate } />
+                <MateGallery className="py-6 overflow-hidden" images={ mate.images } />
+                <MateInfo mate={ mate }/>
             </>}
         </div>
     )

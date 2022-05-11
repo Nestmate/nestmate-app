@@ -37,16 +37,18 @@ export const Mates = () => {
       <section className="min-h-min ">
           <Container>
                 <header>
-                    <h1>Mates</h1>
-                    
-                    {loading && <LoadingOverlay />}
-                    {!loading && mates?.length === 0 && <p>No mates found</p>}
-                    <SimpleGrid cols={4}>
-                        {!loading && mates?.length > 0 && mates.map(mate => <>
-                            <RoomMate key={mate.username} roommate={mate}/>
-                        </>)}
-                    </SimpleGrid>
+
+                    <h1 className="mb-6">Mates</h1>
                 </header>
+                {loading && <LoadingOverlay />}
+
+                {!loading && mates?.length === 0 && <p>No mates found</p>}
+                
+                <div className="grid grid-col-1 md:grid-col-3 lg:grid-cols-4 gap-6">
+                    {!loading && mates?.length > 0 && mates.map(mate => <>
+                        <RoomMate key={mate.username} roommate={mate}/>
+                    </>)}
+                </div>
           </Container>
       </section>
   )

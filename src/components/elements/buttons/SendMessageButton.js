@@ -1,16 +1,13 @@
 import { PaperAirplaneIcon } from "@heroicons/react/solid"
+import { Link, useLocation } from "react-router-dom";
 
 
-export const SendMessageButton = ({user,mate}) => {
+export const SendMessageButton = ({ user, mate}) => {
 
-    const onHandeMessageUser = (e) => {
-        e.preventDefault();
-        if(user) return console.log(`Send message to ${mate.username}`);
-        return console.log('Create Account Modal');
-    }
+    const location = useLocation()
 
     return (
         
-        <button  className="button" onClick={onHandeMessageUser}><PaperAirplaneIcon className="button-icon"/></button>
+        <Link  className="button" to={`/chat/new/${mate._id}`} state={{ backgroundLocation: location }}><PaperAirplaneIcon className="button-icon"/></Link>
     )
 }

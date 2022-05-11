@@ -18,7 +18,7 @@ export const Onboarding = () => {
     const { type } = useParams();
     const navigate = useNavigate()
 
-    const { token, user, storeToken, authenticateUser } = useContext(UserContext);
+    const { isLoading, token, user, storeToken, authenticateUser } = useContext(UserContext);
     const [onBoardingData, setOnboardingData] = useState(null);
     const [onBoardingType, setOnboardingType] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -61,13 +61,16 @@ export const Onboarding = () => {
                     next: '/mates'
                 })
                 break;
-            default:
+            case 'personal':
                 setOnboardingType({
                     title: 'Personal Information',
                     subtitle: 'Update your personal information to keep your mates in the loop',
                     form: PersonalForm,
                     next: '/auth/onboarding/move'
                 })
+                break;
+            default:
+                
                 break;
         }
 
@@ -76,6 +79,7 @@ export const Onboarding = () => {
     const onFormUpdated = async (info) => {
         try{
             setIsLoadingData(true);
+
             const { data,status } = await updateOnboarding(info, user._id, token, type);
 
             if(data.authToken){
@@ -102,6 +106,7 @@ export const Onboarding = () => {
                 icon: <XIcon  className='icon'/>,
                 title: err.message
             });
+            
         }finally{
             setIsLoadingData(false);
         }
@@ -111,17 +116,33 @@ export const Onboarding = () => {
 
         (async () => {
 
-            if(user && token && type){
-                const { data } = await getOnboarding(user._id, token, type);
-                console.log(data);
-                setOnboardingData(data);
-                setOnboardPage(type);
+            setLoading(true);
+
+            try{
+                if( user && token && type){
+                    const { data } = await getOnboarding(user._id, token, type);
+                    console.log(data);
+                    setOnboardingData(data);
+                    setOnboardPage(type);
+                }
+
+            }catch(err){
+
+                showNotification({
+                    title: 'An Error Occured',
+                    color: 'red',
+                    message: err.message
+                })
+
+            }finally{
                 setLoading(false);
             }
 
+            
+
         })();
         
-    },[user,type])
+    },[ user,type])
 
     return (
 

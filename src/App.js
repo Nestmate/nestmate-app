@@ -7,7 +7,7 @@ function App() {
     <div>
       <Navigation/>
       <Router/>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }

@@ -8,7 +8,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProviderWrapper } from './context/user.context';
 import { MantineProvider } from '@mantine/core';
 import { theme } from './theme/theme';
-import { OnNotification } from './middlewares/OnNotification';
+import { NotificationProviderWrapper } from './context/notification.context';
+import { NotificationsProvider } from '@mantine/notifications';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,9 +17,11 @@ ReactDOM.render(
         <UserProviderWrapper>
           <MantineProvider
             theme={theme}>
-            <OnNotification>
-              <App />
-            </OnNotification>
+            <NotificationsProvider position="top-right" zIndex={2077}>
+              <NotificationProviderWrapper>
+                <App />
+              </NotificationProviderWrapper>
+            </NotificationsProvider>
           </MantineProvider>
         </UserProviderWrapper>
       </Router>

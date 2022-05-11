@@ -1,7 +1,7 @@
 import { Button, Text, Title, Stack, Select, Textarea } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useEffect, useContext, useState } from "react"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { createChat, getConnections } from "../../api/NestmateApi";
 import { Container } from "../../components/elements/Container";
 import { UserContext } from "../../context/user.context";
@@ -9,10 +9,13 @@ import { UserContext } from "../../context/user.context";
 export const NewChat = () => {
 
   const navigate = useNavigate();
-  const { token, user } = useContext(UserContext);
+  const { isLoading ,token, user } = useContext(UserContext);
+
+  const { userId } = useParams();
+
   const [loading, setLoading] = useState(true);
   const [ loadingData, setLoadingData ] = useState(false);
-  const [ selectedUser, setSelectedUser ] = useState('');
+  const [ selectedUser, setSelectedUser ] = useState( userId ? userId : '' );
   const [ message, setMessage ] = useState("");
   const [connections, setConnections] = useState([]);
 
@@ -26,7 +29,7 @@ export const NewChat = () => {
       console.log( { users: [ user._id, selectedUser ] , message, token } );
       const { data,status } = await createChat( [ user._id, selectedUser ], message, token );
 
-      if(data?._id && status === 200) navigate(`/chats/${data._id}`);
+      if(data?._id && status === 200) return navigate(`/chats/${data._id}`);
 
       showNotification({
         title: "An Error Occured",
@@ -71,7 +74,7 @@ export const NewChat = () => {
 
     })();
 
-  },[ token ]);
+  },[ isLoading ]);
 
   return (
     <div className="py-10">
@@ -91,7 +94,7 @@ export const NewChat = () => {
           <Stack>
             <Title align="center">Start a New conversation</Title>
             <form onSubmit={onCreateNewConversation}>
-              <Stack grow>
+              <Stack>
                 <Select
                   required
                   value={selectedUser}
