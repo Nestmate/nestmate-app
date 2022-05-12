@@ -30,7 +30,7 @@ export const ModalPage = ({ children, size }) => {
             size={ size ? size : '1024px' }
         >
             <UnstyledButton onClick={onDismiss} className="absolute right-0" style={{top: '-40px'}}><XIcon className="text-white w-6 h-6"/></UnstyledButton>
-
+            
             { children }
             
         </Modal>

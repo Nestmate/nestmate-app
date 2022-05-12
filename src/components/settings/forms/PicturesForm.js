@@ -9,8 +9,10 @@ import { ImagePreview } from "../../elements/Imageupload/ImagePreview";
 export const PicturesForm = ({ data, onFormUpdated, isLoading }) => {
 
 
-    const [images, setImages] = useState([]);
+    const [ images, setImages ] = useState([]);
+    const [ newImages, setNewImages ] = useState([]);
     const [profilePicture, setProfilePicture] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
 
@@ -30,7 +32,7 @@ export const PicturesForm = ({ data, onFormUpdated, isLoading }) => {
                 files.map(file => {
                     reader.readAsDataURL(file);
                     reader.onload = () => {
-                        setImages([...images, { path:reader.result, file }]);
+                        setNewImages([...newImages, { path:reader.result, file }]);
                     }
                 })
             }
@@ -38,11 +40,20 @@ export const PicturesForm = ({ data, onFormUpdated, isLoading }) => {
             updateProfilePicture();
     }
 
-    const onImageRemoveHandler = (i) => {
-
-        const newImages = images.filter((image, index) => index !== i);
-        setImages(newImages);
-        updateProfilePicture();
+    const onImageRemoveHandler = (i,type) => {
+        
+        switch(type){
+            case 'old':
+                const newImages = images.filter((image, index) => index !== i);
+                setImages(newImages);
+                break;
+            default:
+                const newNewImages = newImages.filter((image, index) => index !== i);
+                setNewImages(newNewImages);
+                break;
+        }
+        //updateProfilePicture();
+        console.log({ images, newImages });
     }
 
     const onSubmitHandler = async (e) => {
@@ -50,10 +61,10 @@ export const PicturesForm = ({ data, onFormUpdated, isLoading }) => {
         e.preventDefault();
 
         try{
-
+            setLoading(true);
             let formData;
 
-            const promises = images.map( async ({file}) => { console.log(file); 
+            const promises = newImages.map( async ({file}) => { console.log(file); 
                 formData = new FormData();
                 formData.append("file", file);
                 return await uploadImage(formData);
@@ -61,17 +72,21 @@ export const PicturesForm = ({ data, onFormUpdated, isLoading }) => {
 
             const res = await Promise.all(promises);
 
-            const newImages = res.map(({data}) => data.file);
+            const uploadedImages = res.map(({data}) => data.file);
+            const uploadImages = [...images, ...uploadedImages]
 
             onFormUpdated({
-                images:newImages,
-                profilePicture: newImages[0]
+                images: uploadImages,
+                profilePicture: uploadImages[0]
             });
 
         }catch(err){
 
             console.log(err);
 
+        }finally {
+                
+            setLoading(false);
         }
 
     }
@@ -80,10 +95,11 @@ export const PicturesForm = ({ data, onFormUpdated, isLoading }) => {
         <form onSubmit={onSubmitHandler}>
             <Stack spacing='xl'>
                 <SimpleGrid cols={3}>
-                    {images?.length > 0 && images.map( (image, i) => <ImagePreview key={i} image={{...image,i}} removeImage={onImageRemoveHandler}/> )}
+                    {images?.length > 0 && images.map( (image, i) => <ImagePreview key={i} image={{...image,i}} removeImage={ i => onImageRemoveHandler(i,'old')}/> )}
+                    {newImages?.length > 0 && newImages.map( (image, i) => <ImagePreview key={i} image={{...image,i}} removeImage={ i => onImageRemoveHandler(i,'new')}/> )}
                     <ImageDropZone onDrop={onImageSelectHandler} />
                 </SimpleGrid>
-                <Button type="submit" size="md" fullWidth loading={isLoading}>Update</Button>
+                <Button type="submit" size="md" fullWidth loading={isLoading || loading}>Update</Button>
             </Stack>
         </form>
     )

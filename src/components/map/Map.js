@@ -30,7 +30,7 @@ export const Map = ({lat,lng,mates}) => {
     
     return (
         <div>
-            <div ref={mapContainer} style={{height:`80vh`}}></div>
+            <div ref={mapContainer} style={{height:`calc(100vh - 70px)`}}></div>
         </div>
         
     )

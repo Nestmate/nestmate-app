@@ -9,6 +9,7 @@ import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { NavigationItem } from "../../components/navigation/NavigationItem";
 import { Link } from "react-router-dom";
+import { Notifications } from "../../components/navigation/Notifications";
 
 const privateNavigation = [
   { name: 'Mates', to: '/mates', current: false },
@@ -35,7 +36,7 @@ export const Navigation = () => {
     <Disclosure as="nav" className='border-b-2 border-slate-200 border-solid'>
       {({ open }) => (
         <>
-          <div className="px-4 md:px-6">
+          <div className="px-4 md:px-6 container">
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -78,7 +79,10 @@ export const Navigation = () => {
               {/* PROFILE DROPDOWN */}
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
-                {isLoggedIn && user && <Profile user={user} logoutUser={logoutUser}/>}
+                {isLoggedIn && user && <>
+                  <Notifications />
+                  <Profile user={user} logoutUser={logoutUser}/>
+                </>}
 
                 {!isLoggedIn && <>
                   <div className="flex items-center">

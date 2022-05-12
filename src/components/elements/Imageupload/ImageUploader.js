@@ -8,6 +8,7 @@ import { ImageEdit } from "./ImageEdit";
 export const ImageUploader = ({onChange}) => {
   
   const [currentImages, setCurrentImages] = useState([]);
+  const [removedImage, setRemovedImage] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
 
   const onImageDropHandler = (files) => {

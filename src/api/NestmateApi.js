@@ -21,6 +21,9 @@ export const uploadImage = ( files ) => axios.post(`${baseURL}/files/upload`, fi
 //INTERESTS
 export const getInterests = () => axios.get(`${baseURL}/interests/`);
 
+//NOTIFICATIONS
+export const getNotifications = ( token, range ) => axios.post(`${baseURL}/notifications/`,{ range, token });
+
 //MATES
 export const getMatesByUserId = ( id, token = null ) => axios.get(`${baseURL}/mates/${id}`,{headers:{Authorization: `Bearer ${token}`}});
 export const findMatesByUserId = ( id, token = null ) => axios.post(`${baseURL}/mates/${id}`,{headers:{Authorization: `Bearer ${token}`}});

@@ -3,14 +3,16 @@ import { Container } from "../../components/elements/Container"
 import { UserContext } from "../../context/user.context"
 import { useContext,useState } from "react"
 import { findMatesByUserId, getMatesByUserId } from "../../api/NestmateApi"
-import { Grid, LoadingOverlay, SimpleGrid } from "@mantine/core"
+import { Stack, LoadingOverlay } from "@mantine/core"
 import { RoomMate } from "../../components/mates/RoomMate"
+import { FilterHeader } from "../../components/elements/search/FilterHeader"
 
 export const Mates = () => {
 
     const { token,user } = useContext(UserContext);
     const [loading,setLoading] = useState(true);
     const [mates,setMates] = useState([]);
+    const [filteredMates,setFilteredMates] = useState([]);
     
     useEffect(() => {
 
@@ -28,6 +30,9 @@ export const Mates = () => {
                 setLoading(false);
                 setMates(data[0].connections);
             }
+            if(mates.length){
+                setFilteredMates(mates);
+            }
 
         })();
 
@@ -36,19 +41,23 @@ export const Mates = () => {
   return (
       <section className="min-h-min ">
           <Container>
-                <header>
-
-                    <h1 className="mb-6">Mates</h1>
-                </header>
+                
                 {loading && <LoadingOverlay />}
 
                 {!loading && mates?.length === 0 && <p>No mates found</p>}
+                <Stack>
+                { !loading && mates?.length > 0 && <>
                 
-                <div className="grid grid-col-1 md:grid-col-3 lg:grid-cols-4 gap-6">
-                    {!loading && mates?.length > 0 && mates.map(mate => <>
-                        <RoomMate key={mate.username} roommate={mate}/>
-                    </>)}
-                </div>
+                    <FilterHeader title={'Mates'} mates={ mates } filterMates={ (mates) => setFilteredMates(mates) }/>
+                    
+                    <div className="grid grid-col-1 md:grid-col-3 lg:grid-cols-4 gap-6">
+                        {!loading && mates?.length > 0 && filteredMates.map(mate => <>
+                            <RoomMate key={mate.username} roommate={mate}/>
+                        </>)}
+                    </div>
+                </> }
+                </Stack>
+               
           </Container>
       </section>
   )

@@ -11,6 +11,7 @@ function NotificationProviderWrapper({children}){
     const { user } = useContext( UserContext );
     const [ socket, setSocket ] = useState( null );
     const isMountedRef = useRef( null );
+    const [ currentNotification, setCurrentNotification ] = useState( [] );
 
     const socketEmit = (event, data) => socket && socket.emit( event, data );
     const socketOn = (event, callback) => {
@@ -31,10 +32,11 @@ function NotificationProviderWrapper({children}){
                 setSocket(socket);
 
                 socket.emit('join', { userId: user._id });
-                socket.on('notification', ({ type, notification }) => {
-                    
-                    console.log('notification', type, notification);
-                    //setNotifications(notification)
+                socket.on('notification', ({ notification }) => {
+
+                    console.log('notification', notification);
+
+                    setCurrentNotification( notification );
 
                     showNotification({
                         title: notification.title,
@@ -53,7 +55,12 @@ function NotificationProviderWrapper({children}){
 
 
     return (
-        <NotificationContext.Provider value={{ socketOn, socketEmit }}>
+        <NotificationContext.Provider 
+            value={{ 
+                socketOn, 
+                socketEmit,
+                currentNotification 
+                }}>
             {children}
         </NotificationContext.Provider>
     )

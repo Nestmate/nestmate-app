@@ -16,8 +16,8 @@ import { IsPrivate } from '../middlewares/IsPrivate';
 import { Settings } from '../pages/settings/Settings';
 import { SettingsDetail } from '../pages/settings/SettingsDetail';
 import { Chats } from '../pages/chats/Chats';
-import { Chat } from '../pages/chats/Chat';
 import { NewChat } from '../pages/chats/NewChat';
+import { Notifications } from '../pages/notifications/Notifications';
 
 
 export const Router = () => {
@@ -43,6 +43,8 @@ export const Router = () => {
         <Route path="/chats" element={<IsPrivate><Chats /></IsPrivate>} />
         <Route path="/chats/:chatId" element={<IsPrivate><Chats /></IsPrivate>} />
         <Route path="/chat/new" element={<IsPrivate><NewChat /></IsPrivate>} />
+
+        <Route path="/profile/notifications" element={<IsPrivate><Notifications/></IsPrivate>}/>
         
         <Route path="/mates/" element={<IsPrivate><Mates /></IsPrivate>}/>
         <Route path="/favourites/" element={<IsPrivate><Favourites /></IsPrivate>}/>

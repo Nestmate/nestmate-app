@@ -17,7 +17,8 @@ export const NearByRoomMates = ({ theme }) => {
     useEffect(() => {
 
         (async () => {
-            if(!position) return await navigator.geolocation.getCurrentPosition(showPosition);
+            if(!position) await navigator.geolocation.getCurrentPosition(showPosition);
+            console.log(position);
             const { data } = await getUsersByLocation( position.latitude, position.longitude, 100);
             setRoommates(data);
             setLoading(false);

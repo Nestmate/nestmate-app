@@ -3,12 +3,10 @@ import { ActionIcon, Image } from "@mantine/core"
 
 
 export const ImagePreview = ({image,removeImage}) => {
-
-
     
     return (
-        <div>
-            <ActionIcon onClick={()=> removeImage(image.i)}>
+        <div className="relative">
+            <ActionIcon onClick={()=> removeImage(image.i)} className="absolute top-2 right-2 z-10" variant="light">
                 <XIcon size='sm'/>
             </ActionIcon>
             <Image 
