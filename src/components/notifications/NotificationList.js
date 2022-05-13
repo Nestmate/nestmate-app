@@ -12,7 +12,7 @@ export const NotificationList = ( { notifications } ) => {
   return (
     <div>
 
-         <Stack>
+         <Stack align={'center'}>
 
             { notifications.length === 0 && <>
                 <Stack align={'center'} spacing="sm" className="w-full py-4">
@@ -32,7 +32,7 @@ export const NotificationList = ( { notifications } ) => {
             </>}
 
         </Stack>
-        
+
     </div>
   )
 }

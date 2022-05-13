@@ -5,10 +5,11 @@ import { IsLoading } from "./IsLoading";
 
 export const IsOnboarded = ({ children }) => {
 
-    const { isOnboarded, isLoading } = useContext(UserContext);
+    const { isOnboarded, isLoggedIn, user, isLoading } = useContext(UserContext);
+    
+    if (isLoading) return <IsLoading loading={ isLoading }/>
 
-
-    { isOnboarded && <Navigate to='/mates' /> }
+    { isOnboarded && isLoggedIn && <Navigate to='/mates' /> }
 
     return children;
 }

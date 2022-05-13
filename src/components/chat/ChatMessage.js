@@ -5,7 +5,7 @@ export const ChatMessage = ({ message,user, updatedAt, align }) => {
 
 
   return (
-    <div className={`chat-message-wrapper ${ align }`}>
+    <div className={`chat-message-wrapper ${ align } `}>
       <div className={`chat-message ${ align }`}>
         <div>
           { align !== 'right' && <Avatar size={'md'} src={ user.profilePicture.path } />}

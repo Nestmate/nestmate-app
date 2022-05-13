@@ -7,7 +7,8 @@ import { UserContext } from "../../context/user.context";
 import { Map } from "../../components/map/Map";
 import { LoadingMate } from "../../components/mates/LoadingMate";
 import { FilterHeader } from "../../components/elements/search/FilterHeader";
-import { Stack } from "@mantine/core";
+import { ActionIcon, Avatar, Button, Drawer, Modal, Stack } from "@mantine/core";
+import { MapIcon } from "@heroicons/react/outline";
 
 export const SearchMates = () => {
 
@@ -15,6 +16,7 @@ export const SearchMates = () => {
   const [loading,setLoading] = useState(true);
   const [mates,setMates] = useState([]);
   const [filteredMates,setFilteredMates] = useState([]);
+  const [opened, setOpened] = useState(false);
   const { lat,lng } = useParams();
 
     useEffect(() => {
@@ -34,8 +36,8 @@ export const SearchMates = () => {
       <section className="py-0">
         <div className="w-full">
           
-          <div className="grid grid-cols-2 gap-0">
-            <article className="p-4 md:p-8 overflow-y-scroll screen-height">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+            <article className="p-4 md:p-8 overflow-y-scroll screen-height relative">
               <Stack>
                 <FilterHeader title={'Mates'} mates={ mates } filterMates={ ( mates ) => setFilteredMates(mates) }/>
 
@@ -46,19 +48,40 @@ export const SearchMates = () => {
                 </>}
 
                 {!loading && mates?.length > 0 && <>
-                  <div className="grid grid-cols-1 gap-6 md:grid-cols-3 ">
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 ">
                     {filteredMates.map(mate => <RoomMate roommate={mate} key={mate.username} />)}
                   </div>
                 </>}
 
                 {!loading && mates?.length === 0 && <p>No mates found</p>}
               </Stack>
+              <Button  onClick={() => setOpened(!opened)} size={'xl'} radius={80} className="fixed bottom-4 right-4  px-4 z-10 block lg:hidden flex justify-center items-center"><MapIcon className="w-10 h-10" /></Button>
             </article>
-            <aside>
-              <Map lat={lat} lng={lng} mates={filteredMates}/>
+            
+            <aside className="hidden lg:block">
+              <Map lat={lat} lng={lng} mates={filteredMates} innerStyle={{height:`calc(100vh - 70px)`}}/>
             </aside>
           </div>
         </div>
+        {/* <Drawer
+          opened={opened}
+          onClose={() => setOpened(false)}
+          padding={0}
+          size="xl"
+        >
+          <Map lat={lat} lng={lng} mates={filteredMates}/>
+        </Drawer> */}
+        <Modal
+            opened={opened}
+            onClose={() => setOpened(false)}
+            size={'xl'}
+            radius={'lg'}
+            padding={0}
+            withCloseButton={false}
+            className="p-0 block lg:hidden"
+          >
+           <Map lat={lat} lng={lng} mates={filteredMates} innerStyle={ { height:`calc(80vh)`, borderRadius: '10px' } }/>
+        </Modal>
       </section>
     )
 }

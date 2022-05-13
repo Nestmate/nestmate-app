@@ -142,7 +142,7 @@ export const Onboarding = () => {
 
         })();
         
-    },[ user,type])
+    },[ isLoading, user ,type])
 
     return (
 
@@ -150,7 +150,7 @@ export const Onboarding = () => {
             <Container className='max-w-2xl'>
                 <div>
 
-                    <Stack spacing='xl'>
+                    <Stack spacing='xl' align={'center'}>
                         { loading && <LoadingOverlay /> }
                         { !loading && onBoardingData && onBoardingType && <>
                         

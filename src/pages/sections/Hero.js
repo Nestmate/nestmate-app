@@ -1,3 +1,5 @@
+import { Stack, Text } from "@mantine/core"
+import { Link } from "react-router-dom"
 import { Container } from "../../components/elements/Container"
 import { LocationSearch } from "../../components/elements/search/LocationSearch"
 
@@ -5,12 +7,15 @@ export const Hero = () => {
   return (
     <section>
         <Container>
-            <div className="grid grid-cols-2 gap-4">
-                <article>
+            <div className="grid grid-cols-3 gap-4">
+                <article className="col-span-2">
                     <div className="text-left">
-                        <h1 className="text-5xl md:text-7xl">Find your perfect roommate.</h1>
-                        <p className="text-2xl my-4">We're not fully launched yet 😢. But feel free to request an early beta invite.</p>
-                        <LocationSearch size={'xl'}/>
+                        <Stack>
+                            <h1 className="text-3xl md:text-5xl">Find your perfect roommate.</h1>
+                            <p className="text-2xl">No matter where you're moving, nestmate will find you your perfect roommate.</p>
+                            <LocationSearch size={'xl'}/>
+                            <Text className="flex gap-2"><b>Trending:</b> <Link className="" to={'/mates/location/38.748243/-9.140093'}>Lisbon</Link> <Link to={'/mates/location/38.748243/-9.140093'}>Barcelona</Link></Text>
+                        </Stack>
                     </div>
                 </article>
                 <aside>

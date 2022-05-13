@@ -4,7 +4,7 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFjaG91YW4iLCJhIjoiY2ptYWhvZWMxMGlncDNzcHRjcHI4dWFybyJ9.LZU4i8T_QRFEpCtSLJRr7Q';
 
 
-export const Map = ({lat,lng,mates}) => {
+export const Map = ({ lat, lng, mates, innerStyle}) => {
 
     const mapContainer = useRef(null);
     const map = useRef(null);
@@ -12,9 +12,7 @@ export const Map = ({lat,lng,mates}) => {
 
     useEffect(() => {
 
-        (async () => {
-
-            if (map.current) return; // initialize map only once
+        if (! map.current){  // initialize map only once
             
             map.current = new mapboxgl.Map({
                 container: mapContainer.current,
@@ -22,15 +20,23 @@ export const Map = ({lat,lng,mates}) => {
                 center: [lng, lat],
                 zoom: zoom
             });
-            
-        })();
-        
+        }
 
-    },[mates]);
+        mates.forEach(mate => {
+
+            const { coordinates } = mate.loc;
+            console.log(coordinates);
+            new mapboxgl.Marker({ color: 'black', rotation: 45 })
+            .setLngLat(coordinates)
+            .addTo(map.current);
+            
+        });
+
+    },[ mates ]);
     
     return (
         <div>
-            <div ref={mapContainer} style={{height:`calc(100vh - 70px)`}}></div>
+            <div ref={mapContainer} style={ innerStyle }></div>
         </div>
         
     )

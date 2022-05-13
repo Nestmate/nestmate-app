@@ -17,14 +17,14 @@ export const NearByRoomMates = ({ theme }) => {
     useEffect(() => {
 
         (async () => {
-            if(!position) await navigator.geolocation.getCurrentPosition(showPosition);
-            console.log(position);
+            if(!position) return await navigator.geolocation.getCurrentPosition(showPosition);
+            
             const { data } = await getUsersByLocation( position.latitude, position.longitude, 100);
             setRoommates(data);
             setLoading(false);
         })();
 
-    },[]);
+    },[ position ]);
 
 
     return (
@@ -33,7 +33,7 @@ export const NearByRoomMates = ({ theme }) => {
             <Container>
 
                 <h2 className="text-3xl md:text-4xl mb-2">Roommates near you</h2>
-                <p className="text-xl text-slate-600 mb-6">Some sort of subtitle</p>
+                <p className="text-xl text-slate-700 mb-6">Meet like minded people near you. Maybe even your next roommate!</p>
                 
                 {loading ? <>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-4">

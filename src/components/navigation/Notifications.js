@@ -14,6 +14,7 @@ export const Notifications = () => {
     const [loading, setLoading] = useState(true);
     const { token, isLoading } = useContext(UserContext);
     const { currentNotification } = useContext(NotificationContext);
+    const [ seen, setSeen ] = useState(false);
 
         
 
@@ -27,6 +28,7 @@ export const Notifications = () => {
                 try{
                     const { data } = await getNotifications(token, { skip:0, limit:5 });
                     console.log(data);
+                    data.find(notification => notification.isRead === false ) && setSeen(false);
                     setNotifications(data);
 
                 }catch(err){
@@ -39,7 +41,7 @@ export const Notifications = () => {
             })();
         }
 
-        setNotifications([ currentNotification, ...notifications ])
+        setNotifications( oldNotifications => [ currentNotification, ...oldNotifications ])
 
     }, [ isLoading, currentNotification ]);
 
@@ -48,7 +50,7 @@ export const Notifications = () => {
             <Popover
                 opened={opened}
                 onClose={() => setOpened(false)}
-                target={<ActionIcon onMouseEnter={() => setOpened(true)}><BellIcon className="w-5 h-5" /></ActionIcon>}
+                target={<ActionIcon onClick={() => { setOpened(!opened); setSeen(true)}} className={'relative'}>{ !seen && <div className="w-2 h-2 rounded-lg bg-orange-400 absolute -right-1 -top-1"></div> }<BellIcon className="w-6 h-6" /></ActionIcon>}
                 width={320}
                 position="bottom"
                 withArrow
@@ -57,7 +59,7 @@ export const Notifications = () => {
                 placement="end"
                 spacing={'sm'}
                 >
-                <div style={{ display: 'flex' }} className="relative">
+                <div style={{ display: 'flex' }} className="relative w-full justify-center">
                     {/* <Image
                     src="./logo.svg"
                     width={30}

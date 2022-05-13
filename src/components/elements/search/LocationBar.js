@@ -33,11 +33,12 @@ export const LocationBar = ({size , label, onChange}) =>{
                 
                 const { data } = await getLocationsByQuery(query);
 
-                console.log(data)
+                console.log(data);
 
-                const mappedLocations = data.addresses.map(({country,city,geometry}) => {
+                const mappedLocations = data.addresses.map(({country,city,geometry,formattedAddress}) => {
                     return {
-                        value: `${city}, ${country}`,
+                        value: `${formattedAddress}`,
+                        location: `${city}, ${country}`,
                         loc: {
                             lng: geometry.coordinates[0],
                             lat: geometry.coordinates[1]

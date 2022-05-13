@@ -13,7 +13,7 @@ export const CompleteForm = ({ data, onFormUpdated, isLoading }) => {
 
     return (
         <form onSubmit={onSubmitHandler}>
-           <Button type="submit" size="md" fullWidth loading={isLoading}>Complete Onboarding</Button>
+           <Button type="submit" size="lg" loading={isLoading}>Complete Onboarding</Button>
         </form>
     )
 }
