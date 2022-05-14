@@ -14,7 +14,7 @@ export const Hero = () => {
                             <h1 className="text-3xl md:text-5xl">Find your perfect roommate.</h1>
                             <p className="text-2xl">No matter where you're moving, nestmate will find you your perfect roommate.</p>
                             <LocationSearch size={'xl'}/>
-                            <Text className="flex gap-2"><b>Trending:</b> <Link className="" to={'/mates/location/38.748243/-9.140093'}>Lisbon</Link> <Link to={'/mates/location/38.748243/-9.140093'}>Barcelona</Link></Text>
+                            <Text className="flex gap-2"><b>Trending:</b> <Link className="text-underline" to={'/mates/location/38.748243/-9.140093'}>Lisbon</Link> <Link to={'/mates/location/41.400347/2.159592'}>Barcelona</Link></Text>
                         </Stack>
                     </div>
                 </article>

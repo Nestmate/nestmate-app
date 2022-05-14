@@ -3,7 +3,7 @@ import { Modal,UnstyledButton } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { XIcon } from "@heroicons/react/outline";
 
-export const ModalPage = ({ children, size }) => {
+export const ModalPage = ({ children, size = 'xl' }) => {
 
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
@@ -21,13 +21,14 @@ export const ModalPage = ({ children, size }) => {
         
         <Modal
             transition={'slide-up'}
+            centered
             transitionDuration={300}
-            overflow="outside"
             onClose={onDismiss}
             opened={isOpen}
             withCloseButton={false}
             radius={'lg'}
-            size={ size ? size : '1024px' }
+            size={ size }
+            style={{}}
         >
             <UnstyledButton onClick={onDismiss} className="absolute right-0" style={{top: '-40px'}}><XIcon className="text-white w-6 h-6"/></UnstyledButton>
             

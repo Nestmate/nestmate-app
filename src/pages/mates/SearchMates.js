@@ -9,6 +9,7 @@ import { LoadingMate } from "../../components/mates/LoadingMate";
 import { FilterHeader } from "../../components/elements/search/FilterHeader";
 import { ActionIcon, Avatar, Button, Drawer, Modal, Stack } from "@mantine/core";
 import { MapIcon } from "@heroicons/react/outline";
+import { EmptyState } from "../../components/elements/empty/EmptyState";
 
 export const SearchMates = () => {
 
@@ -53,7 +54,13 @@ export const SearchMates = () => {
                   </div>
                 </>}
 
-                {!loading && mates?.length === 0 && <p>No mates found</p>}
+                {!loading && mates?.length === 0 && <>
+                  <EmptyState 
+                  title={'No Mates Found'} 
+                  description={'We couldn\'t find any mates in your area. Try searching for a different location.'}/>
+                  </>}
+
+                  
               </Stack>
               <Button  onClick={() => setOpened(!opened)} size={'xl'} radius={80} className="fixed bottom-4 right-4  px-4 z-10 block lg:hidden flex justify-center items-center"><MapIcon className="w-10 h-10" /></Button>
             </article>

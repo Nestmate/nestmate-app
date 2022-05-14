@@ -6,8 +6,14 @@ import { getFavouritesByUserId } from "../../api/NestmateApi"
 import { RoomMate } from "../../components/mates/RoomMate"
 import { FilterHeader } from "../../components/elements/search/FilterHeader"
 import { Stack } from "@mantine/core"
+import { EmptyState } from "../../components/elements/empty/EmptyState"
+import { useNavigate } from "react-router-dom"
+import EmptyFavourite from "../../assets/empty/empty-favourites.png"
+
 
 export const Favourites = () => {
+
+    const navigate = useNavigate();
 
     const { user } = useContext(UserContext);
     const [loading,setLoading] = useState(true);
@@ -34,7 +40,13 @@ export const Favourites = () => {
                     
 
                     {loading && <p>Loading...</p>}
-                    {!loading && favourites?.length === 0 && <p>No mates found</p>}
+                    {!loading && favourites?.length === 0 && <EmptyState 
+                        image={ EmptyFavourite }
+                        title={`You don't have any favourites yet.`}
+                        subtitle={`You can add favourites by clicking on the star icon on the room mate you want to favourite.`}
+                        cta={`Find Mates`}
+                        onAction={ () => navigate('/mates') }
+                    />}
                     {!loading && favourites?.length > 0 && <>
                         <Stack>
 

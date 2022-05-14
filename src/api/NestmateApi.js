@@ -14,6 +14,7 @@ export const createChat = ( users, message, token ) => axios.post(`${baseURL}/ch
 
 //CONNECTIONS
 export const getConnections = ( token ) => axios.get(`${baseURL}/connections/`,{headers:{Authorization: `Bearer ${token}`}});
+export const getConnectionById = ( id, token ) => axios.get(`${baseURL}/connections/${id}`,{headers:{Authorization: `Bearer ${token}`}});
 
 //FILES
 export const uploadImage = ( files ) => axios.post(`${baseURL}/files/upload`, files);

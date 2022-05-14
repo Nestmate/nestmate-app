@@ -39,6 +39,7 @@ export const ChatDetail = ( { chatId, token, user, socket } ) => {
                         socket.socketOn('message', ( message ) =>  { 
                             
                             message.chatId === chatId && setMessages( oldArr => [ ...oldArr, message.message ] );
+                            
                         });
                     }
 

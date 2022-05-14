@@ -18,6 +18,7 @@ import { SettingsDetail } from '../pages/settings/SettingsDetail';
 import { Chats } from '../pages/chats/Chats';
 import { NewChat } from '../pages/chats/NewChat';
 import { Notifications } from '../pages/notifications/Notifications';
+import { Connection } from '../pages/connections/Connection';
 
 
 export const Router = () => {
@@ -58,8 +59,9 @@ export const Router = () => {
       {/* Show the modal when a `backgroundLocation` is set */}
       {state?.backgroundLocation && (
         <Routes>
-          <Route path="/mates/:username" element={<ModalPage><MateDetail /></ModalPage>} />
-          <Route path="/chat/new/:userId" element={<IsPrivate><ModalPage size={'lg'}><NewChat /></ModalPage></IsPrivate>} />
+          <Route path="/mates/:username" element={<ModalPage size={'100%'}><MateDetail /></ModalPage>} />
+          <Route path="/chat/new/" element={<IsPrivate><ModalPage size={'lg'}><NewChat /></ModalPage></IsPrivate>} />
+          <Route path="/connection/:conId" element={<IsPrivate><ModalPage size={'md'}><Connection /></ModalPage></IsPrivate>} />
         </Routes>
       )}
 

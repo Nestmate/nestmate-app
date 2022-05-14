@@ -45,9 +45,9 @@ export const Signup = () => {
         await authenticateUser();
 
         showNotification({
-          title: "Welcome back 🎉",
-          color: "green",
-          icon: <CheckIcon />
+          title: "Congratz! You did it!",
+          message: "We just need a little bit of information, so we can give you a better experience.",
+          color: "green"
         });
 
         navigate('/auth/onboarding');

@@ -6,6 +6,9 @@ import { findMatesByUserId, getMatesByUserId } from "../../api/NestmateApi"
 import { Stack, LoadingOverlay } from "@mantine/core"
 import { RoomMate } from "../../components/mates/RoomMate"
 import { FilterHeader } from "../../components/elements/search/FilterHeader"
+import { EmptyState } from "../../components/elements/empty/EmptyState"
+import { IsLoading } from "../../middlewares/IsLoading"
+import EmptyMate from "../../assets/empty/empty-mates.png"
 
 export const Mates = () => {
 
@@ -13,30 +16,28 @@ export const Mates = () => {
     const [loading,setLoading] = useState(true);
     const [mates,setMates] = useState([]);
     const [filteredMates,setFilteredMates] = useState([]);
+
+    const findMates = async (e) => {
+        e.preventDefault();
+        const { data } = await findMatesByUserId(user._id);
+        setMates(data);
+        setFilteredMates(data);
+    }
     
     useEffect(() => {
 
         (async () => {
             
             const { data } = await getMatesByUserId(user._id);
-            if(data?.connections?.length) {
 
-                setLoading(false);
-                setMates(data.connections);
-
-            }else{
-
-                const { data } = await findMatesByUserId(user._id);
-                setLoading(false);
-                setMates(data[0].connections);
-            }
-            if(mates.length){
-                setFilteredMates(mates);
-            }
+            setLoading(false);
+            setMates(data);
+            
+            if(mates.length) setFilteredMates(mates);
 
         })();
 
-    }, [user]);
+    }, [ IsLoading ]);
 
   return (
       <section className="min-h-min ">
@@ -44,7 +45,13 @@ export const Mates = () => {
                 
                 {loading && <LoadingOverlay />}
 
-                {!loading && mates?.length === 0 && <p>No mates found</p>}
+                {!loading && mates?.length === 0 && <EmptyState 
+                        image={ EmptyMate }
+                        title={`Let's find you some mates!`}
+                        subtitle={`We make sure to match you with the right people, so you don't have to think about it.`}
+                        cta={`Let's find you some mates!`}
+                        onAction={ findMates  }
+                    />}
                 <Stack>
                 { !loading && mates?.length > 0 && <>
                 

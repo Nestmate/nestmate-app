@@ -1,5 +1,6 @@
-import { Button, List, ScrollArea, Stack, Text, Title } from "@mantine/core"
+import { Button, Image, List, ScrollArea, Stack, Text, Title } from "@mantine/core"
 import { Link } from "react-router-dom"
+import EmptyNotification from "../../assets/empty/empty-notification.png"
 import { NotificationItem } from "./NotificationItem"
 import { Connection } from "./types/Connection"
 
@@ -16,6 +17,7 @@ export const NotificationList = ( { notifications } ) => {
 
             { notifications.length === 0 && <>
                 <Stack align={'center'} spacing="sm" className="w-full py-4">
+                    <Image src={ EmptyNotification} className="w-24 h-24"/>
                     <Title order={3}  align={'center'}>No Notifications yet</Title>
                     <Text  align={'center'}>Try to connect with some mates</Text> 
                     <Button component={ Link } to={'/mates'} size="md">Find Mates</Button>

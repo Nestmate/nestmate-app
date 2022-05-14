@@ -13,12 +13,8 @@ function NotificationProviderWrapper({children}){
     const isMountedRef = useRef( null );
     const [ currentNotification, setCurrentNotification ] = useState( [] );
 
-    const socketEmit = (event, data) => socket && socket.emit( event, data );
-    const socketOn = (event, callback) => {
-        console.log('socket on', event);
-        return socket && socket.on( event, callback )
-        
-    };
+    const socketEmit = (event, data) => socket && socket.emit( event, data )
+    const socketOn = (event, callback) => socket && socket.on( event, callback )
 
     useEffect(() => {
 
@@ -29,6 +25,7 @@ function NotificationProviderWrapper({children}){
             if(isMountedRef.current && user){
 
                 const socket = await io(`${process.env.REACT_APP_PROJECTS_API}`);
+
                 setSocket(socket);
 
                 socket.emit('join', { userId: user._id });
